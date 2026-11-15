@@ -1,0 +1,10 @@
+node_modules
+dist
+dist-ssr
+.taste-skill
+shots
+.tmp
+*.log
+
+# The design reference holds private usage data (prompt text and word counts). Never publish it.
+wrapped-2026.html
