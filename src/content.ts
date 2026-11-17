@@ -11,7 +11,7 @@ export type Tone = "tomato" | "cobalt" | "lime" | "mint" | "sand" | "ink" | "pap
 export const person = {
   name: "Adam Dani Apta Mahendra",
   short: "Adam Dani",
-  role: "Web developer & AI enthusiast",
+  role: "CTO & Product Engineer",
   country: "Indonesia",
   email: "adam.daniamm@gmail.com",
 };
@@ -100,7 +100,7 @@ export const services: Service[] = [
   {
     n: "04",
     title: "UI/UX & creative design",
-    body: "Flows and layouts drawn in Figma, then built exactly as drawn, with type and spacing I learned from posters.",
+    body: "I turn Figma flows and layouts into responsive interfaces, bringing the same attention to type and spacing that I use in poster design.",
     tone: "mint",
     visual: "shapes",
     tools: ["figma", "tailwindcss"],
@@ -114,7 +114,7 @@ export type Project = {
   body: string;
   stack: string[];
   tone: Tone;
-  visual: "route" | "chat" | "meter" | "bill" | "booth" | "orders";
+  visual: "route" | "chat" | "meter" | "bill" | "booth" | "studio";
   links: { label: string; href: string }[];
   note?: string;
   year: string;
@@ -124,8 +124,8 @@ export const projects: Project[] = [
   {
     id: "pandu",
     name: "Pandu.ai",
-    what: "AI dispatcher for last-mile delivery in Surabaya",
-    body: "Gemini assigns couriers, batches nearby orders and reroutes around floods reported by photo. I built the dashboard, the driver app and the backend wiring.",
+    what: "Hackathon prototype for last-mile delivery dispatch",
+    body: "Pandu.ai explores courier assignment, nearby-order batching and route changes based on delivery conditions. I handled the frontend, including the dashboard and driver interface.",
     stack: ["React", "TypeScript", "Gemini", "Firestore", "Cloud Run"],
     tone: "lime",
     visual: "route",
@@ -138,8 +138,8 @@ export const projects: Project[] = [
   {
     id: "nusakas",
     name: "NusaKas",
-    what: "Cash book for small shops, kept over WhatsApp",
-    body: "An owner sends “Pemasukan 150000” or a receipt photo; Gemini reads it, files the entry and updates a live dashboard.",
+    what: "Hackathon cash book for small shops over WhatsApp",
+    body: "An owner sends “Pemasukan 150000” or a receipt photo; Gemini reads it, files the entry and updates a live dashboard. I co-founded and built the product with Nadif Fijri.",
     stack: ["React 19", "Node.js", "Gemini", "WhatsApp bot"],
     tone: "tomato",
     visual: "chat",
@@ -152,8 +152,8 @@ export const projects: Project[] = [
   {
     id: "riskala",
     name: "RISKALA",
-    what: "Early-warning demo for industrial relations risk",
-    body: "Scores conflict risk by division, drafts sensitive messages in three tones and runs de-escalation role-play against an AI counterpart.",
+    what: "Hackathon concept demo for workplace conflict scenarios",
+    body: "RISKALA visualizes simulated risk by division, drafts messages in different tones and supports AI-based de-escalation role-play. I built the concept demo end to end; it is not a validated HR assessment system.",
     stack: ["Next.js", "TypeScript", "Tailwind CSS"],
     tone: "cobalt",
     visual: "meter",
@@ -166,8 +166,8 @@ export const projects: Project[] = [
   {
     id: "rt-billing",
     name: "RT-Billing",
-    what: "Billing dashboard for a neighbourhood association",
-    body: "Charges each household a flat fee plus metered PDAM water, behind a JWT-secured REST API.",
+    what: "Hackathon billing dashboard for a neighbourhood association",
+    body: "I built the billing dashboard, REST API and JWT authentication end to end. It calculates each household's flat fee plus metered PDAM water usage.",
     stack: ["TypeScript", "REST API", "JWT"],
     tone: "sand",
     visual: "bill",
@@ -181,24 +181,34 @@ export const projects: Project[] = [
     id: "photobooth",
     name: "Venture Photobooth",
     what: "Photobooth editor that runs in the browser",
-    body: "Pick one of three templates, upload or shoot photos, adjust each slot and export a full-size PNG or JPEG. No photo leaves the device.",
+    body: "I built the browser-based editor end to end. Pick a template, upload or shoot photos, adjust each slot and export a full-size PNG or JPEG. Photos stay on the device.",
     stack: ["Next.js", "TypeScript", "Playwright"],
     tone: "mint",
     visual: "booth",
-    links: [],
-    note: "Private repository",
+    links: [{ label: "Open the app", href: "https://venture-photobooth.vercel.app/" }],
     year: "2026",
   },
   {
     id: "venture",
     name: "Venture Studio",
-    what: "Marketplace for ordering creative work",
-    body: "Clients order design, branding and 3D work as tracked projects with payment, chat and delivery in one place. Framio hands out photobooth photos by claim code.",
-    stack: ["Next.js", "Supabase", "Cloudflare R2"],
+    what: "Creative studio for design, branding and digital products",
+    body: "Venture Studio works with clients on design, branding, 3D and digital products. I lead technology as CTO and build the studio's products end to end as Product Engineer.",
+    stack: ["Next.js", "Supabase", "NestJS"],
     tone: "ink",
-    visual: "orders",
+    visual: "studio",
+    links: [{ label: "Visit the studio", href: "https://venturestudio.co.id/" }],
+    year: "2026",
+  },
+  {
+    id: "vsconnect",
+    name: "VSConnect",
+    what: "Internal WhatsApp customer-service system",
+    body: "Routes customer messages to an internal team group, stores conversations and generates AI-assisted reply drafts. I built the system end to end, including the WhatsApp integrations and operations dashboard.",
+    stack: ["Node.js", "WhatsApp Cloud API", "Baileys", "Firestore", "Gemini", "OpenAI"],
+    tone: "cobalt",
+    visual: "chat",
     links: [],
-    note: "Private repository",
+    note: "Private build",
     year: "2026",
   },
 ];
@@ -227,7 +237,7 @@ export const roles: Role[] = [
   {
     when: "Apr – May 2026",
     kind: "Hackathon",
-    title: "Full-stack engineer, team Pandu.ai",
+    title: "Frontend engineer, team Pandu.ai",
     org: "GDG Surabaya Mini Hackathon Antigravity 2026",
     start: 15,
     end: 17,
@@ -236,20 +246,11 @@ export const roles: Role[] = [
   {
     when: "Jun 2026 – now",
     kind: "Studio",
-    title: "Product builder, Venture Studio",
-    org: "Marketplace, photobooth, Framio and a WhatsApp help desk",
+    title: "CTO & Product Engineer",
+    org: "Venture Studio, a creative studio",
     start: 17,
     end: 23,
     tone: "cobalt",
-  },
-  {
-    when: "Sep 2026",
-    kind: "Organisation",
-    title: "Event site, Catalyst Summit 2026",
-    org: "Society of Renewable Energy, Universitas Airlangga",
-    start: 20,
-    end: 21,
-    tone: "ink",
   },
 ];
 

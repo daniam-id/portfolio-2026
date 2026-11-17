@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { asset } from "../lib/asset";
+import { motionQuery, useReducedMotion } from "../lib/motion";
 
 const delay = (s: number) => ({ "--delay": `${s}s` }) as CSSProperties;
 
@@ -61,6 +62,7 @@ export function useInView<T extends Element>(options: IntersectionObserverInit =
   useEffect(() => {
     const el = ref.current;
     if (!el || seen) return;
+    if (!("IntersectionObserver" in window)) { setSeen(true); return; }
     const io = new IntersectionObserver(([e]) => {
       if (e.isIntersecting) {
         setSeen(true);
@@ -76,10 +78,11 @@ export function useInView<T extends Element>(options: IntersectionObserverInit =
 
 /** Counts from zero to `to` once `run` turns true. Under reduced motion it shows the number at once. */
 export function CountUp({ to, run, duration = 1800 }: { to: number; run: boolean; duration?: number }) {
-  const [value, setValue] = useState(0);
+  const [value, setValue] = useState(to);
+  const reduced = useReducedMotion();
   useEffect(() => {
     if (!run) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    if (reduced) {
       setValue(to);
       return;
     }
@@ -93,7 +96,7 @@ export function CountUp({ to, run, duration = 1800 }: { to: number; run: boolean
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [run, to, duration]);
+  }, [run, to, duration, reduced]);
   return (
     <span className="tnum" aria-label={to.toLocaleString("en-US")}>
       <span aria-hidden="true">{value.toLocaleString("en-US")}</span>
@@ -108,50 +111,44 @@ export function Dots({ dots }: { dots: Dot[] }) {
   const box = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const el = box.current;
-    if (!el || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!el) return;
+    const reduce = window.matchMedia(motionQuery);
+    const fine = window.matchMedia("(hover: hover) and (pointer: fine)");
     const nodes = Array.from(el.children) as HTMLElement[];
-    const state = nodes.map(() => ({ x: 0, y: 0, vx: 0, vy: 0 }));
-    const p = { x: -9999, y: -9999 };
-    let raf = 0;
-    let last = performance.now();
-    const onMove = (e: PointerEvent) => {
-      const r = el.getBoundingClientRect();
-      p.x = e.clientX - r.left;
-      p.y = e.clientY - r.top;
-    };
-    const tick = (now: number) => {
-      raf = requestAnimationFrame(tick);
-      const dt = Math.min(0.05, (now - last) / 1000);
-      last = now;
-      const r = el.getBoundingClientRect();
-      nodes.forEach((n, i) => {
-        const d = dots[i];
-        const hx = (d.x / 100) * r.width;
-        const hy = (d.y / 100) * r.height;
-        let tx = 0;
-        let ty = 0;
-        const dx = hx - p.x;
-        const dy = hy - p.y;
-        const dist = Math.hypot(dx, dy);
-        const reach = 140;
-        if (dist < reach && dist > 0.01) {
-          const k = (1 - dist / reach) ** 2 * 60;
-          tx = (dx / dist) * k;
-          ty = (dy / dist) * k;
-        }
-        const s = state[i];
-        s.vx += ((tx - s.x) * 150 - s.vx * 11) * dt;
-        s.vy += ((ty - s.y) * 150 - s.vy * 11) * dt;
-        s.x += s.vx * dt;
-        s.y += s.vy * dt;
-        n.style.translate = `${s.x.toFixed(2)}px ${s.y.toFixed(2)}px`;
+    const reset = () => nodes.forEach((node) => node.style.removeProperty("translate"));
+    const onMove = (event: PointerEvent) => {
+      if (event.pointerType !== "mouse") return;
+      const rect = el.getBoundingClientRect();
+      nodes.forEach((node, i) => {
+        const dx = dots[i].x / 100 * rect.width - (event.clientX - rect.left);
+        const dy = dots[i].y / 100 * rect.height - (event.clientY - rect.top);
+        const distance = Math.hypot(dx, dy);
+        const push = distance > 0 ? Math.max(0, 1 - distance / 140) ** 2 * 40 : 0;
+        node.style.translate = `${dx / (distance || 1) * push}px ${dy / (distance || 1) * push}px`;
       });
     };
-    window.addEventListener("pointermove", onMove, { passive: true });
-    raf = requestAnimationFrame(tick);
+    let visible = true;
+    const section = el.closest("section")!;
+    const update = () => {
+      section.removeEventListener("pointermove", onMove);
+      reset();
+      if (!reduce.matches && fine.matches && visible) section.addEventListener("pointermove", onMove, { passive: true });
+    };
+    nodes.forEach((node) => { node.style.transition = "translate 350ms cubic-bezier(.22,1,.36,1)"; });
+    const observer = "IntersectionObserver" in window ? new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; update(); }) : null;
+    observer?.observe(section);
+    update();
+    section.addEventListener("pointerleave", reset);
+    window.addEventListener("blur", reset);
+    reduce.addEventListener("change", update);
+    fine.addEventListener("change", update);
     return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener("pointermove", onMove);
+      observer?.disconnect(); reset();
+      section.removeEventListener("pointermove", onMove);
+      section.removeEventListener("pointerleave", reset);
+      window.removeEventListener("blur", reset);
+      reduce.removeEventListener("change", update);
+      fine.removeEventListener("change", update);
     };
   }, [dots]);
 

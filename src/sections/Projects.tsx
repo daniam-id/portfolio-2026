@@ -1,167 +1,143 @@
 import { projects, type Project } from "../content";
-import { SectionHead } from "../components/ui";
+import "./projects.css";
 
-const tone: Record<string, string> = {
-  lime: "t-lime",
-  tomato: "t-tomato",
-  cobalt: "t-cobalt",
-  sand: "t-sand",
-  mint: "t-mint",
-  ink: "t-ink",
+// Roles and build status confirmed by the project owner.
+const projectDetails: Record<string, { role: string; status: string; title?: string; illustration: string }> = {
+  venture: { role: "CTO & Product Engineer", status: "Public studio", illustration: "Abstract composition of design, digital and 3D forms for Venture Studio." },
+  pandu: { role: "Frontend engineer", status: "Hackathon prototype", title: "Last-mile delivery dispatch", illustration: "Illustrative map with a delivery route changing around a flooded road." },
+  nusakas: { role: "Co-founder & full-stack developer", status: "Hackathon build", title: "A cash book over WhatsApp", illustration: "Illustrative exchange showing a shop income message becoming a cash-book entry." },
+  riskala: { role: "End-to-end developer", status: "Hackathon concept demo", title: "Workplace conflict scenarios", illustration: "Concept illustration connecting a simulated scenario to different reply tones; not an HR assessment." },
+  "rt-billing": { role: "End-to-end developer", status: "Hackathon build", title: "Neighbourhood billing", illustration: "Illustrative billing formula combining a flat monthly fee and metered water usage." },
+  photobooth: { role: "End-to-end developer", status: "Public app", illustration: "Abstract photo strips illustrating a browser photobooth editor and image export." },
+  vsconnect: { role: "End-to-end developer", status: "Internal · private", illustration: "Illustrative customer-service flow from an incoming inquiry to the team inbox, an AI draft and a human reply." },
 };
+
+const projectOrder = ["venture", "pandu", "nusakas", "photobooth", "riskala", "vsconnect", "rt-billing"];
 
 export function Projects() {
   return (
-    <section id="projects" aria-labelledby="projects-title" className="section t-paper">
+    <section id="projects" aria-labelledby="projects-title" className="section projects-index">
       <div className="wrap">
-        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-          <SectionHead index="04 projects --selected" id="projects-title">
-            Selected projects, from a hackathon to a studio platform
-          </SectionHead>
-          <a href="https://github.com/daniam-id" className="link shrink-0 text-[17px] font-medium" rel="noopener">
-            See all repos on GitHub →
-          </a>
-        </div>
+        <header className="projects-heading" data-motion="rise">
+          <div>
+            <p className="projects-eyebrow"><span aria-hidden="true">↳</span> 04 / Selected work</p>
+            <h2 id="projects-title">Projects<span className="serif"> in practice.</span></h2>
+          </div>
+          <div className="projects-intro">
+            <p>From hackathon ideas to studio products.<br />Seven builds, and my part in each.</p>
+            <a href="https://github.com/daniam-id" target="_blank" rel="noopener noreferrer">All repos on GitHub <span aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span></a>
+          </div>
+        </header>
 
-        <ul className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-2 lg:mt-14 lg:grid-cols-3 lg:gap-6">
-          {projects.map((p) => (
-            <li key={p.id} className="card flex flex-col bg-paper-2">
-              <div className={`relative h-[240px] overflow-hidden ${tone[p.tone]}`}>
-                <Fragment kind={p.visual} />
-              </div>
-              <div className="flex flex-1 flex-col p-6">
-                <p className="mono flex items-center justify-between text-[13px] opacity-70">
-                  <span>{p.name}</span>
-                  <span>{p.year}</span>
-                </p>
-                <h3 className="mt-3 text-[24px] leading-[1.08] tracking-[-0.04em]">{p.what}</h3>
-                <p className="mt-3 text-[16px] leading-[1.5] opacity-85">{p.body}</p>
-                <ul className="mt-5 flex flex-wrap gap-1.5" aria-label="Built with">
-                  {p.stack.map((s) => (
-                    <li key={s} className="pill">
-                      {s}
-                    </li>
-                  ))}
-                </ul>
-                <div className="mt-auto flex flex-wrap items-center gap-x-6 gap-y-2 pt-6 text-[16px] font-medium">
-                  {p.links.map((l) => (
-                    <a key={l.href} href={l.href} className="link inline-flex min-h-11 items-center" target="_blank" rel="noopener">
-                      {l.label} <span aria-hidden="true">&nbsp;↗</span>
-                      <span className="sr-only"> for {p.name} (opens in a new tab)</span>
-                    </a>
-                  ))}
-                  {p.note && <span className="inline-flex min-h-11 items-center text-[15px] font-normal opacity-60">{p.note}</span>}
-                </div>
-              </div>
-            </li>
-          ))}
-        </ul>
+        <ol className="projects-gallery" aria-label="Selected projects">
+          {projectOrder.map((id, index) => {
+            const p = projects.find((project) => project.id === id);
+            if (!p) return null;
+            const details = projectDetails[id];
+            return (
+              <li key={id} className={`project-entry project-entry--${id}`}>
+                <article aria-labelledby={`project-${id}`}>
+                  <div className={`project-cover project-cover--${id}`} role="img" aria-label={details.illustration} data-motion="depth">
+                    <div className="project-cover-label" aria-hidden="true"><span>{p.name}</span><span>Illustrative cover</span></div>
+                    <div className="project-art" aria-hidden="true"><ProjectArt project={p} /></div>
+                    <span className="project-cover-index" aria-hidden="true">{String(index + 1).padStart(2, "0")} / {p.year}</span>
+                  </div>
+                  <div className="project-copy" data-motion="rise" data-stagger="1">
+                    <div className="project-summary">
+                      <div className="project-title-line"><h3 id={`project-${id}`}>{p.name}</h3><span>{p.year}</span></div>
+                      <p className="project-purpose">{details.title ?? p.what}</p>
+                      <dl className="project-facts">
+                        <div><dt>My role</dt><dd>{details.role}</dd></div>
+                        <div><dt>Status</dt><dd>{details.status}</dd></div>
+                      </dl>
+                    </div>
+                    <div className="project-description">
+                      <p>{p.body}</p>
+                      <ul className="project-stack" aria-label={`Built with for ${p.name}`}>
+                        {p.stack.map((s) => <li key={s}>{s}</li>)}
+                      </ul>
+                      <div className="project-links">
+                        {p.links.map((link) => <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer">{link.label} <span aria-hidden="true">↗</span><span className="sr-only"> for {p.name} (opens in a new tab)</span></a>)}
+                        {p.note && <span className="project-private"><span aria-hidden="true">↳</span> {p.note}</span>}
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              </li>
+            );
+          })}
+        </ol>
       </div>
     </section>
   );
 }
 
-/** Small, live-HTML pieces of each product: what it works on, not a generic dashboard. */
-function Fragment({ kind }: { kind: Project["visual"] }) {
-  switch (kind) {
-    case "route":
-      return (
-        <svg viewBox="0 0 400 230" className="absolute inset-0 size-full" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-          <g stroke="rgb(25 25 25 / .14)" strokeWidth="10" fill="none">
-            <path d="M-10 60 H420 M-10 150 H420 M90 -10 V240 M230 -10 V240 M330 -10 V240" />
-          </g>
-          <path d="M40 190 V150 H230 V60 H360" fill="none" stroke="rgb(25 25 25 / .3)" strokeWidth="4" strokeDasharray="2 10" strokeLinecap="round" />
-          <path className="route-new" d="M40 190 V150 H90 V60 H360" fill="none" stroke="#191919" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" pathLength={1} />
-          <circle cx="230" cy="110" r="16" fill="#2f4be0" />
-          <path d="M230 100c-5 7-7 10-7 13a7 7 0 0 0 14 0c0-3-2-6-7-13z" fill="#f4f1ea" />
-          <rect x="30" y="180" width="20" height="20" rx="4" fill="#ff5a36" />
-          <rect x="350" y="50" width="20" height="20" rx="10" fill="#191919" />
-          <g transform="translate(246 128)">
-            <rect width="140" height="30" rx="6" fill="#191919" />
-            <text x="12" y="20" fontFamily="ui-monospace,monospace" fontSize="12" fill="#d8f34a">&gt;</text>
-            <text x="26" y="20" fontFamily="ui-monospace,monospace" fontSize="12" fill="#f4f1ea">flood: reroute</text>
-          </g>
+/** Editorial illustrations, not screenshots or records from the products. */
+function ProjectArt({ project }: { project: Project }) {
+  if (project.id === "vsconnect") return (
+    <div className="connect-flow">
+      <div className="connect-inquiry"><span>Incoming inquiry</span><p>“Bisa tanya tentang layanannya?”</p></div>
+      <span className="connect-arrow">↓</span>
+      <div className="connect-work"><span>Team inbox</span><div><span className="connect-ai">AI draft</span><p>“Tentu, layanan apa yang ingin dibahas?”</p></div></div>
+      <span className="connect-arrow">↓</span>
+      <div className="connect-reply"><span>Human review & reply</span><span>↗</span></div>
+    </div>
+  );
+  switch (project.visual) {
+    case "studio": return (
+      <div className="studio-composition">
+        <span className="studio-word">venture</span>
+        <svg className="studio-object" viewBox="0 0 440 320" fill="none">
+          <path d="M220 20 400 120 220 220 40 120Z" fill="#ff5a36" />
+          <path d="m40 120 180 100v90L40 210Z" fill="#c63e21" />
+          <path d="m220 220 180-100v90L220 310Z" fill="#ed6c48" />
+          <ellipse cx="220" cy="120" rx="78" ry="43" fill="#191919" />
+          <path d="M142 120c0-24 35-43 78-43s78 19 78 43" stroke="#f4f1ea" strokeOpacity=".35" />
         </svg>
-      );
-    case "chat":
-      return (
-        <div className="absolute inset-0 flex flex-col justify-center gap-2.5 px-6 text-[14px] leading-[1.35]" aria-hidden="true">
-          <p className="chat-in ml-auto max-w-[78%] rounded-[14px] rounded-br-[4px] bg-paper-2 px-3.5 py-2.5">Pemasukan 150000 dari penjualan bakso</p>
-          <p className="chat-out max-w-[84%] rounded-[14px] rounded-bl-[4px] bg-ink px-3.5 py-2.5 text-paper">
-            <span className="text-lime">✓</span> Pemasukan Rp150.000 dicatat sebagai ‘penjualan bakso’
-          </p>
-          <p className="chat-out2 max-w-[60%] rounded-[14px] rounded-bl-[4px] bg-ink/85 px-3.5 py-2 text-[13px] text-paper/90">Total pemasukan hari ini: Rp150.000</p>
-        </div>
-      );
-    case "meter":
-      return (
-        <div className="absolute inset-0 flex flex-col justify-center gap-5 px-6" aria-hidden="true">
-          <div>
-            <p className="text-[13px] opacity-80">Tension</p>
-            <div className="mt-2 flex gap-1">
-              {Array.from({ length: 12 }, (_, i) => (
-                <span key={i} className="meter-seg h-6 flex-1 rounded-[2px] bg-paper/25" style={{ animationDelay: `${i * 0.12}s`, ["--c" as string]: i > 8 ? "#ff5a36" : i > 5 ? "#d8f34a" : "#f4f1ea" }} />
-              ))}
-            </div>
-          </div>
-          <div className="flex flex-wrap gap-1.5 text-[13px]">
-            {["Authoritative", "Collaborative", "De-escalation"].map((t, i) => (
-              <span key={t} className="tone-pill rounded-full border border-paper/50 px-3 py-1.5" style={{ animationDelay: `${i * 1.07}s` }}>
-                {t}
-              </span>
-            ))}
-          </div>
-        </div>
-      );
-    case "bill":
-      return (
-        <div className="absolute inset-x-6 inset-y-5 flex flex-col gap-0 rounded-[10px] bg-paper-2 p-4 text-[13px]" aria-hidden="true">
-          <div className="flex items-center justify-between">
-            <span className="font-medium">Household bill</span>
-            <span className="mono rounded bg-ink px-1.5 py-0.5 text-[11px] text-lime">JWT</span>
-          </div>
-          {["Flat monthly fee", "PDAM water, metered", "Total due"].map((r, i) => (
-            <div key={r} className={`flex items-center justify-between gap-4 border-ink/10 py-2 ${i ? "border-t" : "mt-1.5"} ${i === 2 ? "font-medium" : ""}`}>
-              <span>{r}</span>
-              <span className="bill-line h-2 rounded-full bg-ink/80" style={{ width: [44, 62, 76][i], animationDelay: `${i * 0.4}s` }} />
-            </div>
-          ))}
-          <span className="mt-auto self-start rounded-full bg-tomato px-3 py-1 text-[12px] font-medium">Send bills</span>
-        </div>
-      );
-    case "booth":
-      return (
-        <div className="absolute inset-0 flex items-center justify-center gap-4" aria-hidden="true">
-          {[0, 1, 2].map((s) => (
-            <div key={s} className={`flex flex-col gap-1.5 rounded-[4px] bg-paper-2 p-1.5 shadow-[0_12px_24px_-14px_rgb(25_25_25/.5)] ${s === 1 ? "-translate-y-2" : "translate-y-2"}`}>
-              {[0, 1, 2].map((k) => (
-                <span key={k} className="booth-slot block h-[46px] w-[62px] rounded-[2px]" style={{ animationDelay: `${(s * 3 + k) * 0.25}s` }} />
-              ))}
-              <span className="mono mt-0.5 text-center text-[8px] opacity-60">venture</span>
-            </div>
-          ))}
-          <span className="absolute bottom-4 right-4 rounded-full bg-ink px-3 py-1.5 text-[12px] text-paper">Export PNG</span>
-        </div>
-      );
-    case "orders":
-      return (
-        <div className="absolute inset-x-6 inset-y-5 flex flex-col justify-center gap-2 text-[13px]" aria-hidden="true">
-          {[
-            { what: "UI/UX design", s: 2 },
-            { what: "Brand identity", s: 1 },
-            { what: "3D modelling", s: 0 },
-          ].map((o, i) => (
-            <div key={o.what} className="flex items-center justify-between rounded-[8px] bg-paper/10 px-3 py-2.5">
-              <span>{o.what}</span>
-              <span className="flex gap-1">
-                {["Paid", "In progress", "Delivered"].map((st, k) => (
-                  <span key={st} className={`order-dot size-2.5 rounded-full ${k <= o.s ? "bg-lime" : "bg-paper/25"}`} style={{ animationDelay: `${i * 0.3 + k * 0.15}s` }} />
-                ))}
-              </span>
-            </div>
-          ))}
-          <p className="mono mt-1 text-[11px] opacity-70">paid → in progress → delivered</p>
-        </div>
-      );
+        <div className="studio-disc"><span>Design.<br />Digital.<br /><i className="serif">Dimension.</i></span></div>
+        <span className="studio-foot">A creative studio / built across disciplines</span>
+      </div>
+    );
+    case "route": return (
+      <svg className="pandu-map" viewBox="0 0 600 320" fill="none" preserveAspectRatio="xMidYMid slice">
+        <path d="M0 70H600M0 160H600M0 250H600M100 0V320M260 0V320M430 0V320" stroke="#191919" strokeOpacity=".09" strokeWidth="22" />
+        <path d="M100 250H430V70" stroke="#191919" strokeOpacity=".3" strokeWidth="3" strokeDasharray="5 9" />
+        <path d="M100 250V70H430" stroke="#191919" strokeWidth="6" strokeLinejoin="round" />
+        <circle cx="100" cy="250" r="13" fill="#ff5a36" stroke="#f4f1ea" strokeWidth="4" />
+        <circle cx="430" cy="70" r="13" fill="#191919" stroke="#f4f1ea" strokeWidth="4" />
+        <rect x="302" y="188" width="176" height="38" rx="19" fill="#2f4be0" />
+        <text x="390" y="212" textAnchor="middle" fontFamily="Host Grotesk, sans-serif" fontSize="14" fill="#fbf9f4">Flood → route changes</text>
+        <rect x="146" y="95" width="156" height="38" rx="19" fill="#191919" />
+        <text x="224" y="119" textAnchor="middle" fontFamily="Host Grotesk, sans-serif" fontSize="14" fill="#f4f1ea">An alternative route ↗</text>
+      </svg>
+    );
+    case "chat": return (
+      <div className="cash-composition">
+        <span className="cash-symbol serif">Rp.</span>
+        <div className="cash-message">“Pemasukan 150000<br />dari penjualan bakso”<span>↓</span></div>
+        <div className="cash-entry"><span>Cash-book entry · sample</span><p>Penjualan bakso <strong>+ Rp150.000</strong></p></div>
+      </div>
+    );
+    case "meter": return (
+      <div className="risk-composition">
+        <span className="risk-caption">Simulated scenario</span>
+        <div className="risk-orbit"><span className="serif">Let's<br />talk.</span></div>
+        <div className="risk-tones"><span>Authoritative</span><span>Collaborative</span><span>De-escalation</span></div>
+        <span className="risk-note">Explore a different tone ↗</span>
+      </div>
+    );
+    case "bill": return (
+      <div className="billing-composition">
+        <div><span>01 / Monthly</span><strong>Flat fee</strong></div><span className="billing-operator">+</span>
+        <div><span>02 / Metered</span><strong>Water usage</strong></div><span className="billing-operator">=</span>
+        <p>Household bill <span>↗</span></p>
+      </div>
+    );
+    case "booth": return (
+      <div className="booth-composition">
+        {[0, 1, 2].map((strip) => <div className="project-photo-strip" key={strip}>{[0, 1, 2].map((frame) => <span className={`project-photo-frame project-photo-frame--${(strip + frame) % 3}`} key={frame}><i /></span>)}<span className="photo-strip-label">venture / photobooth</span></div>)}
+        <span className="booth-export">Shoot. Arrange. Export. ↗</span>
+      </div>
+    );
   }
 }

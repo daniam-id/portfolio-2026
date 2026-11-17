@@ -1,0 +1,59 @@
+/* One tempo for feedback; each section retains its own choreography. */
+:root { --feedback: 220ms cubic-bezier(.22, 1, .36, 1); }
+.section[data-motion-paused="true"] *,
+.section[data-motion-paused="true"] *::after { animation-play-state: paused !important; }
+#ai-year .bar { animation: none; }
+
+.btn:focus-visible { transform: translateY(-2px); }
+.btn:focus-visible .arrow { transform: translateX(4px); }
+.btn { transition: transform var(--feedback), background-color var(--feedback), color var(--feedback), box-shadow var(--feedback); }
+.btn:hover, .btn:focus-visible { box-shadow: 0 7px 0 -3px rgb(25 25 25 / .18); }
+.btn:active { box-shadow: none; }
+a > span[aria-hidden="true"] { transition: translate var(--feedback); }
+:is(.project-links, .projects-intro, .creative-credit, .creative-experiments) a:is(:hover, :focus-visible) > span[aria-hidden="true"],
+.experience__name a:is(:hover, :focus-visible) .experience__arrow { translate: 3px -3px; }
+:is(.project-links, .projects-intro, .creative-credit, .creative-experiments) a:active { opacity: .65; }
+.ab__principle h4, .ab__number { transition: translate var(--feedback), color var(--feedback); }
+.svc__item { position: relative; isolation: isolate; }
+.svc__item::after { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--color-cobalt); opacity: 0; transition: opacity var(--feedback); }
+.svc__item h3, .svc__number { transition: translate var(--feedback), color var(--feedback); }
+.svc__number { display: inline-block; }
+.project-art { transition: transform 350ms var(--ease); }
+.project-cover-label, .project-cover-index { transition: translate var(--feedback); }
+.project-entry:focus-within .project-art { transform: scale(1.025); }
+.project-entry:focus-within .project-cover-index { translate: 6px 0; }
+.experience__chapter::before { transform-origin: top; }
+.experience__chapter[data-arrived="true"]::before { animation: timeline-draw 800ms var(--ease) both; }
+.experience__node { transition: box-shadow var(--feedback); }
+.experience__chapter:focus-within .experience__node { box-shadow: 0 0 0 6px rgb(25 25 25 / .1); }
+@keyframes timeline-draw { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+.creative-image-stage { position: relative; overflow: hidden; isolation: isolate; }
+.creative-image-stage .creative-outgoing { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+.creative-arrows button { transition: background-color var(--feedback), border-color var(--feedback), transform var(--feedback); }
+.creative-arrows button span[aria-hidden] { transition: translate var(--feedback); }
+.creative-arrows button:is(:hover, :focus-visible):first-child span[aria-hidden] { translate: -4px 0; }
+.creative-arrows button:is(:hover, :focus-visible):last-child span[aria-hidden] { translate: 4px 0; }
+.creative-arrows button:focus-visible { background: #30302a; }
+.creative-arrows button:active { transform: scale(.95); }
+.creative-ticks button:active span { transform: scaleX(.65) scaleY(3); }
+.nav-section-link { transition: background-color var(--feedback), color var(--feedback), transform var(--feedback); }
+.nav-section-link:active { transform: scale(.95); }
+.nav-menu-link { transition: transform 500ms var(--ease), opacity 300ms var(--ease); }
+[data-open="false"] .nav-menu-link { transform: translateY(20px); opacity: 0; }
+[data-open="true"] .nav-menu-link { transition-delay: calc(var(--menu-index) * 45ms + 70ms); }
+@media (hover: hover) and (pointer: fine) {
+  .ab__principle:hover h4 { translate: 8px 0; color: var(--color-cobalt); }
+  .ab__principle:hover .ab__number { translate: 0 -4px; }
+  .svc__item:hover::after { opacity: .035; }
+  .svc__item:hover h3 { translate: 6px 0; }
+  .svc__item:hover .svc__number { translate: 0 -5px; }
+  .project-entry:hover .project-cover-index { translate: 6px 0; }
+  .experience__chapter:hover .experience__node { box-shadow: 0 0 0 6px rgb(25 25 25 / .1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .btn:is(:hover, :active, :focus-visible), .btn:is(:hover, :focus-visible) .arrow,
+  .project-art, .creative-arrows button:active, .nav-section-link:active { transform: none !important; }
+  a > span[aria-hidden="true"], .ab__principle h4, .ab__number, .svc__item h3, .svc__number,
+  .project-cover-index, .creative-arrows button span[aria-hidden] { translate: none !important; }
+}

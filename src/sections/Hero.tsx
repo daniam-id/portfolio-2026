@@ -47,7 +47,7 @@ export function Hero() {
             </span>
             <span className="mt-4 block text-[clamp(24px,3.2vw,46px)] leading-[1.12] tracking-[-0.045em] sm:mt-6">
               <span className="hl wipe" style={{ "--delay": "1.4s" } as React.CSSProperties}>
-                Web developer &amp; AI enthusiast
+                 CTO &amp; Product Engineer
               </span>
             </span>
           </h1>

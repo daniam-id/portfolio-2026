@@ -43,7 +43,9 @@ export function Halftone({ circles, pitch = 7, seed = 1, className = "", style, 
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const fine = window.matchMedia("(hover: hover) and (pointer: fine)");
+    let reduce = preference.matches;
     const dpr = Math.min(1.5, window.devicePixelRatio || 1);
     let W = 0;
     let H = 0;
@@ -226,23 +228,40 @@ export function Halftone({ circles, pitch = 7, seed = 1, className = "", style, 
     ro.observe(canvas);
     resize();
 
-    const io = new IntersectionObserver(([entry]) => {
+    const io = "IntersectionObserver" in window ? new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
       if (visible && !document.hidden) start();
       else stop();
-    });
-    io.observe(canvas);
+    }) : null;
+    io?.observe(canvas);
+    if (!io) { visible = true; start(); }
 
     const onVis = () => (document.hidden ? stop() : visible && start());
     document.addEventListener("visibilitychange", onVis);
-    if (!reduce) window.addEventListener("pointermove", onMove, { passive: true });
+    const onPreference = () => {
+      reduce = preference.matches;
+      window.removeEventListener("pointermove", onMove);
+      pointer.on = 0;
+      pointer.target = 0;
+      stop();
+      if (reduce) { for (const i of inks) paint(i, 99); compose(); }
+      else {
+        if (fine.matches) window.addEventListener("pointermove", onMove, { passive: true });
+        if (visible && !document.hidden) start();
+      }
+    };
+    onPreference();
+    preference.addEventListener("change", onPreference);
+    fine.addEventListener("change", onPreference);
 
     return () => {
       stop();
       ro.disconnect();
-      io.disconnect();
+      io?.disconnect();
       document.removeEventListener("visibilitychange", onVis);
       window.removeEventListener("pointermove", onMove);
+      preference.removeEventListener("change", onPreference);
+      fine.removeEventListener("change", onPreference);
     };
   }, [circles, pitch, seed, inks, strength]);
 

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import { nav } from "../content";
 
 /**
@@ -10,6 +10,7 @@ export function Nav() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
+    if (!("IntersectionObserver" in window)) return;
     const ids = nav.map((n) => n.href.slice(1));
     const els = ids.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[];
     const io = new IntersectionObserver(
@@ -31,7 +32,6 @@ export function Nav() {
   }, []);
 
   useEffect(() => {
-    document.documentElement.style.overflow = open ? "hidden" : "";
     if (!open) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     window.addEventListener("keydown", onKey);
@@ -56,7 +56,7 @@ export function Nav() {
                   <a
                     href={n.href}
                     aria-current={active === i ? "true" : undefined}
-                    className={`flex min-h-11 items-center rounded-full px-4 text-[15px] tracking-[-0.02em] transition-colors duration-200 hover:bg-ink/8 ${active === i ? "bg-ink text-paper hover:bg-ink" : ""}`}
+                    className={`nav-section-link flex min-h-11 items-center rounded-full px-4 text-[15px] tracking-[-0.02em] transition-colors duration-200 hover:bg-ink/8 ${active === i ? "bg-ink text-paper hover:bg-ink" : ""}`}
                   >
                     {n.label}
                   </a>
@@ -98,6 +98,8 @@ export function Nav() {
 
       <div
         id="menu"
+        data-open={open}
+        inert={!open}
         className={`fixed inset-0 top-0 z-[-1] flex flex-col bg-lime transition-[clip-path,visibility] duration-500 lg:hidden ${open ? "visible" : "invisible"}`}
         style={{ clipPath: open ? "inset(0 0 0 0)" : "inset(0 0 100% 0)", transitionTimingFunction: "var(--ease)" }}
       >
@@ -108,7 +110,8 @@ export function Nav() {
                 <a
                   href={n.href}
                   onClick={() => setOpen(false)}
-                  className="flex min-h-16 items-baseline justify-between py-2 text-[clamp(36px,9vw,64px)] leading-none tracking-[-0.05em]"
+                  className="nav-menu-link flex min-h-16 items-baseline justify-between py-2 text-[clamp(36px,9vw,64px)] leading-none tracking-[-0.05em]"
+                  style={{ "--menu-index": i } as CSSProperties}
                 >
                   {n.label}
                   <span className="font-mono text-sm tracking-normal opacity-60">0{i + 1}</span>

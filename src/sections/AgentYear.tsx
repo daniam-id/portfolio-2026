@@ -43,15 +43,15 @@ export function AgentYear() {
           <h3 className="text-[15px] font-medium">What the agents ran for me</h3>
           <ul className="mt-4 grid gap-4">
             {TOOLS.map((t, i) => (
-              <li key={t.label} className="group grid grid-cols-[1fr_auto] gap-x-3 gap-y-1.5 text-[18px] tracking-[-0.03em] transition-[translate] duration-300 hover:translate-x-1.5">
+              <li key={t.label} data-motion="slide" data-stagger={i % 3} className="group grid grid-cols-[1fr_auto] gap-x-3 gap-y-1.5 text-[18px] tracking-[-0.03em] transition-[translate] duration-300 hover:translate-x-1.5">
                 <span>{t.label}</span>
                 <span className="tnum opacity-75 group-hover:opacity-100">{t.count.toLocaleString("en-US")}</span>
                 <span className="col-span-2 h-2.5 bg-ink/15">
                   <span
+                    data-motion="rule"
                     className="bar glint h-full transition-[scale] duration-1000"
                     style={{
                       width: `${(t.count / MAX) * 100}%`,
-                      scale: seen ? "1 1" : "0 1",
                       transitionDelay: `${0.25 + i * 0.08}s`,
                       transitionTimingFunction: "var(--ease)",
                       "--glint": `${2.4 + i * 0.3}s`,

@@ -1,0 +1,47 @@
+/*
+  Loading screen, shown on every visit. A paper curtain covers the page while the hero's halftone
+  disc prints above it. index.html sets `intro-running` on <html> before first paint, or `intro-skip`
+  when reduced motion is on. src/lib/intro.ts drops `intro-running` when the page is ready, and the
+  hero starts then.
+*/
+
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: none;
+  background: var(--color-paper, #f4f1ea);
+}
+
+html.intro-running .intro,
+html.intro-leaving .intro {
+  display: block;
+}
+
+html.intro-leaving .intro {
+  opacity: 0;
+  transition: opacity 600ms var(--ease, cubic-bezier(0.22, 1, 0.36, 1));
+}
+
+/* The hero's halftone disc prints above the curtain, so the viewer watches the disc form. */
+html.intro-running #top > canvas.ht,
+html.intro-leaving #top > canvas.ht {
+  z-index: 1001;
+}
+
+/* Hold the hero's entrance animations and its ambient loops until the curtain lifts. */
+html.intro-running main *,
+html.intro-running main *::before,
+html.intro-running main *::after {
+  animation-play-state: paused;
+}
+
+/* Hide the scrollbar while the curtain is up. The gutter stays reserved, so nothing shifts on return. */
+html {
+  scrollbar-gutter: stable;
+}
+
+html.intro-running,
+html.intro-leaving {
+  overflow: hidden;
+}
