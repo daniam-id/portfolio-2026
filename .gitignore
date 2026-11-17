@@ -12,3 +12,7 @@ wrapped-2026.html
 # Local screenshots and the content draft are not part of the site.
 images/
 PROJECT_CONTENT_DRAFT.md
+
+# Local tool state. Kiro settings can hold MCP tokens, so they stay out of git.
+.kiro/settings/
+.opencode/
