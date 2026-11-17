@@ -8,3 +8,7 @@ shots
 
 # The design reference holds private usage data (prompt text and word counts). Never publish it.
 wrapped-2026.html
+
+# Local screenshots and the content draft are not part of the site.
+images/
+PROJECT_CONTENT_DRAFT.md
