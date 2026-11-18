@@ -35,7 +35,7 @@ export function AgentYear() {
           <p className="halo text-[clamp(30px,4.2vw,60px)] leading-none tracking-[-0.06em]">lines written</p>
           <p className="lead halo mt-6">
             From {y.prompts.toLocaleString("en-US")} prompts across {y.sessions} sessions, {y.range}. Agents do the typing;
-            I set the plan, read the diffs and decide what ships. Counted from my own opencode logs.
+            I set the plan, read the diffs and decide what ships. Counted from my own opencode, Claude Code and Codex logs.
           </p>
         </div>
 

@@ -1,7 +1,7 @@
 /**
  * Every fact on the page lives here. Sources:
  * - projects: the public READMEs on github.com/daniam-id and the local repos in ~/programme
- * - agentYear: wrapped-2026.html (Adam's own opencode usage export, 17 Feb to 13 Nov 2026)
+ * - agentYear: wrapped-2026.html (Adam's own agent usage export, taken 18 Nov 2026)
  * - socials: the old portfolio's src/config/site.ts
  * Nothing here is estimated. Add roles only when they are real.
  */
@@ -42,14 +42,14 @@ export const navTop = nav.filter((item) => item.href !== "#contact");
 
 /** From wrapped-2026.html: window.__WRAPPED__.totals and friends. */
 export const agentYear = {
-  range: "17 Feb to 13 Nov 2026",
-  prompts: 3584,
-  sessions: 557,
-  projects: 38,
-  activeDays: 152,
+  range: "17 Feb to 15 Nov 2026",
+  prompts: 3590,
+  sessions: 563,
+  projects: 40,
+  activeDays: 153,
   linesWritten: 261452,
   streakDays: 34,
-  models: 52,
+  models: 53,
   providers: 7,
   peakHour: "21:00",
   busiest: "20 July, 163 prompts",
