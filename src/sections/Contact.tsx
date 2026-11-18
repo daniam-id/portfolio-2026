@@ -14,7 +14,7 @@ export function Contact() {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-6">
           <div className="lg:col-span-7">
             <p className="tag tag--paper">
-              <span className="tag__caret" aria-hidden="true">&gt;</span> 07 contact
+              <span className="tag__caret" aria-hidden="true">&gt;</span> 06 contact
               <span className="tag__cursor" aria-hidden="true" />
             </p>
             <h2 id="contact-title" className="mt-6 text-[clamp(52px,8vw,120px)] leading-[0.9] tracking-[-0.065em]">

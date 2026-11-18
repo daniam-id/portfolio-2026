@@ -10,9 +10,9 @@
 .btn:hover, .btn:focus-visible { box-shadow: 0 7px 0 -3px rgb(25 25 25 / .18); }
 .btn:active { box-shadow: none; }
 a > span[aria-hidden="true"] { transition: translate var(--feedback); }
-:is(.project-links, .projects-intro, .creative-credit, .creative-experiments) a:is(:hover, :focus-visible) > span[aria-hidden="true"],
+:is(.project-links, .projects-intro) a:is(:hover, :focus-visible) > span[aria-hidden="true"],
 .experience__name a:is(:hover, :focus-visible) .experience__arrow { translate: 3px -3px; }
-:is(.project-links, .projects-intro, .creative-credit, .creative-experiments) a:active { opacity: .65; }
+:is(.project-links, .projects-intro) a:active { opacity: .65; }
 .ab__principle h4, .ab__number { transition: translate var(--feedback), color var(--feedback); }
 .svc__item { position: relative; isolation: isolate; }
 .svc__item::after { content: ""; position: absolute; inset: 0; z-index: -1; background: var(--color-cobalt); opacity: 0; transition: opacity var(--feedback); }
@@ -27,15 +27,6 @@ a > span[aria-hidden="true"] { transition: translate var(--feedback); }
 .experience__node { transition: box-shadow var(--feedback); }
 .experience__chapter:focus-within .experience__node { box-shadow: 0 0 0 6px rgb(25 25 25 / .1); }
 @keyframes timeline-draw { from { transform: scaleY(0); } to { transform: scaleY(1); } }
-.creative-image-stage { position: relative; overflow: hidden; isolation: isolate; }
-.creative-image-stage .creative-outgoing { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
-.creative-arrows button { transition: background-color var(--feedback), border-color var(--feedback), transform var(--feedback); }
-.creative-arrows button span[aria-hidden] { transition: translate var(--feedback); }
-.creative-arrows button:is(:hover, :focus-visible):first-child span[aria-hidden] { translate: -4px 0; }
-.creative-arrows button:is(:hover, :focus-visible):last-child span[aria-hidden] { translate: 4px 0; }
-.creative-arrows button:focus-visible { background: #30302a; }
-.creative-arrows button:active { transform: scale(.95); }
-.creative-ticks button:active span { transform: scaleX(.65) scaleY(3); }
 .nav-section-link { transition: background-color var(--feedback), color var(--feedback), transform var(--feedback); }
 .nav-section-link:active { transform: scale(.95); }
 .nav-menu-link { transition: transform 500ms var(--ease), opacity 300ms var(--ease); }
@@ -53,7 +44,7 @@ a > span[aria-hidden="true"] { transition: translate var(--feedback); }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .btn:is(:hover, :active, :focus-visible), .btn:is(:hover, :focus-visible) .arrow,
-  .project-art, .creative-arrows button:active, .nav-section-link:active { transform: none !important; }
+  .project-art, .nav-section-link:active { transform: none !important; }
   a > span[aria-hidden="true"], .ab__principle h4, .ab__number, .svc__item h3, .svc__number,
-  .project-cover-index, .creative-arrows button span[aria-hidden] { translate: none !important; }
+  .project-cover-index { translate: none !important; }
 }

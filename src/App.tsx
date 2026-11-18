@@ -5,7 +5,6 @@ import { AgentYear } from "./sections/AgentYear";
 import { Services } from "./sections/Services";
 import { Projects } from "./sections/Projects";
 import { Experience } from "./sections/Experience";
-import { Creative } from "./sections/Creative";
 import { Contact } from "./sections/Contact";
 import { usePageMotion } from "./lib/motion";
 import { useSmoothScroll } from "./lib/smooth-scroll";
@@ -27,7 +26,6 @@ export function App() {
         <Services />
         <Projects />
         <Experience />
-        <Creative />
       </main>
       <Contact />
     </>
