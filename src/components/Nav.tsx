@@ -1,4 +1,4 @@
-import { useEffect, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { nav } from "../content";
 
 /**
@@ -8,6 +8,8 @@ import { nav } from "../content";
 export function Nav() {
   const [active, setActive] = useState(-1);
   const [open, setOpen] = useState(false);
+  const toggle = useRef<HTMLButtonElement>(null);
+  const skipRestore = useRef(false);
 
   useEffect(() => {
     if (!("IntersectionObserver" in window)) return;
@@ -31,11 +33,29 @@ export function Nav() {
     };
   }, []);
 
+  /** While the sheet is open the page behind it is inert and cannot scroll, so a gesture on the
+   *  sheet is never spent moving content the visitor cannot see. */
   useEffect(() => {
     if (!open) return;
+    const root = document.documentElement;
+    const page = [document.getElementById("main"), document.getElementById("contact")].filter(Boolean) as HTMLElement[];
+    const wasInert = page.map((el) => el.inert);
+    page.forEach((el) => (el.inert = true));
+    root.dataset.scrollLock = "1";
+    const lockedFrom = [root.style.overflow, document.body.style.overflow];
+    root.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+    document.querySelector<HTMLElement>("#menu a")?.focus({ preventScroll: true });
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      page.forEach((el, i) => (el.inert = wasInert[i]));
+      delete root.dataset.scrollLock;
+      [root.style.overflow, document.body.style.overflow] = lockedFrom;
+      if (!skipRestore.current) toggle.current?.focus({ preventScroll: true });
+      skipRestore.current = false;
+    };
   }, [open]);
 
   return (
@@ -70,6 +90,7 @@ export function Nav() {
               Contact Me
             </a>
             <button
+              ref={toggle}
               type="button"
               className="grid size-11 place-items-center rounded-full bg-ink text-paper lg:hidden"
               aria-expanded={open}
@@ -109,7 +130,10 @@ export function Nav() {
               <li key={n.href} className="border-b border-ink/20">
                 <a
                   href={n.href}
-                  onClick={() => setOpen(false)}
+                  onClick={() => {
+                    skipRestore.current = true;
+                    setOpen(false);
+                  }}
                   className="nav-menu-link flex min-h-16 items-baseline justify-between py-2 text-[clamp(36px,9vw,64px)] leading-none tracking-[-0.05em]"
                   style={{ "--menu-index": i } as CSSProperties}
                 >

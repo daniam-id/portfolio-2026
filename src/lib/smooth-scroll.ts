@@ -34,6 +34,10 @@ export function useSmoothScroll(): void {
       if (event.defaultPrevented || event.ctrlKey) return; // pinch zoom
       if (Math.abs(event.deltaX) > Math.abs(event.deltaY)) return; // sideways swipes stay native
       if (document.documentElement.classList.contains("intro-running")) return;
+      if (document.documentElement.dataset.scrollLock === "1") { // the menu sheet owns the gesture
+        event.preventDefault();
+        return;
+      }
       if (insideScroller(event.target)) return;
       event.preventDefault();
       const unit = event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? window.innerHeight : 1;
