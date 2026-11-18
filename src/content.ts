@@ -114,10 +114,14 @@ export type Project = {
   body: string;
   stack: string[];
   tone: Tone;
-  visual: "route" | "chat" | "meter" | "bill" | "booth" | "studio";
   links: { label: string; href: string }[];
   note?: string;
   year: string;
+  /**
+   * A screenshot taken from the running product. Without one the entry is set as type only, which is
+   * why Pandu.ai and RISKALA carry no picture: both demos are retired and neither repo ships images.
+   */
+  shot?: { src: string; alt: string; host: string };
 };
 
 export const projects: Project[] = [
@@ -128,11 +132,8 @@ export const projects: Project[] = [
     body: "Pandu.ai explores courier assignment, nearby-order batching and route changes based on delivery conditions. I handled the frontend, including the dashboard and driver interface.",
     stack: ["React", "TypeScript", "Gemini", "Firestore", "Cloud Run"],
     tone: "lime",
-    visual: "route",
-    links: [
-      { label: "Open the demo", href: "https://pandu-ai-2026.web.app" },
-      { label: "Read the code", href: "https://github.com/daniam-id/pandu" },
-    ],
+    links: [{ label: "Read the code", href: "https://github.com/daniam-id/pandu" }],
+    note: "Demo retired",
     year: "2026",
   },
   {
@@ -142,12 +143,16 @@ export const projects: Project[] = [
     body: "An owner sends “Pemasukan 150000” or a receipt photo; Gemini reads it, files the entry and updates a live dashboard. I co-founded and built the product with Nadif Fijri.",
     stack: ["React 19", "Node.js", "Gemini", "WhatsApp bot"],
     tone: "tomato",
-    visual: "chat",
     links: [
       { label: "Open the app", href: "https://nusa-kas.vercel.app" },
       { label: "Read the code", href: "https://github.com/daniam-id/NusaKas" },
     ],
     year: "2025",
+    shot: {
+      src: "/projects/nusakas-1200.webp",
+      alt: "NusaKas landing page: the headline Keuangan Usaha Lebih Rapi over the cash-book call to action and pricing cards",
+      host: "nusa-kas.vercel.app",
+    },
   },
   {
     id: "riskala",
@@ -156,11 +161,8 @@ export const projects: Project[] = [
     body: "RISKALA visualizes simulated risk by division, drafts messages in different tones and supports AI-based de-escalation role-play. I built the concept demo end to end; it is not a validated HR assessment system.",
     stack: ["Next.js", "TypeScript", "Tailwind CSS"],
     tone: "cobalt",
-    visual: "meter",
-    links: [
-      { label: "Open the demo", href: "https://stitch-rho-liart.vercel.app" },
-      { label: "Read the code", href: "https://github.com/daniam-id/stitch" },
-    ],
+    links: [{ label: "Read the code", href: "https://github.com/daniam-id/stitch" }],
+    note: "Demo retired",
     year: "2026",
   },
   {
@@ -170,12 +172,16 @@ export const projects: Project[] = [
     body: "I built the billing dashboard, REST API and JWT authentication end to end. It calculates each household's flat fee plus metered PDAM water usage.",
     stack: ["TypeScript", "REST API", "JWT"],
     tone: "sand",
-    visual: "bill",
     links: [
-      { label: "Open the dashboard", href: "https://rt-billing-admin-web.vercel.app" },
+      { label: "Open the dashboard", href: "https://rt-billing-web.vercel.app" },
       { label: "Read the code", href: "https://github.com/daniam-id/rt-billing" },
     ],
     year: "2026",
+    shot: {
+      src: "/projects/rtbilling-1200.webp",
+      alt: "RT-Billing admin dashboard: billed, collected and overdue totals above the monthly transaction matrix",
+      host: "rt-billing-web.vercel.app",
+    },
   },
   {
     id: "photobooth",
@@ -184,9 +190,13 @@ export const projects: Project[] = [
     body: "I built the browser-based editor end to end. Pick a template, upload or shoot photos, adjust each slot and export a full-size PNG or JPEG. Photos stay on the device.",
     stack: ["Next.js", "TypeScript", "Playwright"],
     tone: "mint",
-    visual: "booth",
     links: [{ label: "Open the app", href: "https://venture-photobooth.vercel.app/" }],
     year: "2026",
+    shot: {
+      src: "/projects/photobooth-1200.webp",
+      alt: "Venture Photobooth editor: template rail, a three-slot strip filled with photos, and the capture inspector",
+      host: "venture-photobooth.vercel.app",
+    },
   },
   {
     id: "venture",
@@ -195,21 +205,13 @@ export const projects: Project[] = [
     body: "Venture Studio works with clients on design, branding, 3D and digital products. I lead technology as CTO and build the studio's products end to end as Product Engineer.",
     stack: ["Next.js", "Supabase", "NestJS"],
     tone: "ink",
-    visual: "studio",
     links: [{ label: "Visit the studio", href: "https://venturestudio.co.id/" }],
     year: "2026",
-  },
-  {
-    id: "vsconnect",
-    name: "VSConnect",
-    what: "Internal WhatsApp customer-service system",
-    body: "Routes customer messages to an internal team group, stores conversations and generates AI-assisted reply drafts. I built the system end to end, including the WhatsApp integrations and operations dashboard.",
-    stack: ["Node.js", "WhatsApp Cloud API", "Baileys", "Firestore", "Gemini", "OpenAI"],
-    tone: "cobalt",
-    visual: "chat",
-    links: [],
-    note: "Private build",
-    year: "2026",
+    shot: {
+      src: "/projects/venture-1200.webp",
+      alt: "Venture Studio home page: the studio name, its one-line positioning, and the order button over colour blocks",
+      host: "venturestudio.co.id",
+    },
   },
 ];
 

@@ -12,20 +12,37 @@
 .projects-gallery { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 58px 32px; padding: 32px 0 0; list-style: none; }
 .project-entry { min-width: 0; grid-column: span 6; }
 .project-entry--venture { grid-column: 1 / -1; }
-.project-entry--pandu, .project-entry--riskala { grid-column: span 7; }
-.project-entry--nusakas, .project-entry--photobooth { grid-column: span 5; }
-.project-cover { position: relative; height: 300px; overflow: hidden; color: var(--color-ink); isolation: isolate; }
-.project-cover--venture { height: clamp(320px, 32vw, 430px); background: #191919; color: #f4f1ea; }
-.project-cover--pandu { background: #d8f34a; }
-.project-cover--nusakas { background: #ff5a36; }
-.project-cover--riskala { background: #2f4be0; color: #f4f1ea; }
-.project-cover--photobooth { background: #bfe8d0; }
-.project-cover--vsconnect { background: #e2e6f6; }
-.project-cover--rt-billing { background: #e6dcc6; }
-.project-cover-label { position: absolute; top: 17px; left: 20px; right: 20px; z-index: 2; display: flex; justify-content: space-between; gap: 8px; font-size: 11px; line-height: 1.3; }
-.project-cover-label > span:first-child { font-weight: 600; }
+.project-entry--nusakas { grid-column: span 7; }
+.project-entry--photobooth { grid-column: span 5; }
+/* Builds with no screen to show close the gallery, side by side, so the screenshot cards lead. */
+.project-entry--pandu, .project-entry--riskala { grid-column: span 6; }
+/* The last build closes the gallery at full width, so no row ends with an empty half. */
+.project-entry--rt-billing { grid-column: 1 / -1; }
+
+/* Screenshot cover: a browser bar in ink, then the product's own screen below it. */
+.project-cover { position: relative; height: 330px; overflow: hidden; color: var(--color-ink); isolation: isolate; background: #191919; }
+.project-cover--venture, .project-entry--rt-billing .project-cover { height: clamp(340px, 34vw, 450px); }
+.project-chrome { position: relative; z-index: 2; display: flex; align-items: center; gap: 10px; height: 30px; padding: 0 10px 0 12px; background: #191919; color: #f4f1ea; font-size: 11px; letter-spacing: .03em; }
+.project-chrome-dots { display: flex; gap: 4px; }
+.project-chrome-dots i { width: 7px; height: 7px; border-radius: 50%; background: #ff5a36; }
+.project-chrome-dots i:nth-child(2) { background: #d8f34a; }
+.project-chrome-dots i:nth-child(3) { background: #2f4be0; }
+.project-chrome-host { flex: 1; text-align: center; opacity: .85; }
 .project-cover-index { position: absolute; bottom: 15px; left: 20px; font-size: 10px; letter-spacing: .04em; z-index: 2; }
-.project-art { position: absolute; inset: 0; }
+.project-cover--shot .project-cover-index { position: static; opacity: .85; }
+.project-art { position: absolute; inset: 0; top: 30px; }
+.project-shot { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+
+/* A build with no screen to show: type only, so nothing has to stand in for a product shot. */
+.project-entry--notext article { display: flex; flex-direction: column; height: 100%; }
+.project-entry--notext .project-copy { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 40px; flex: 1; padding-top: 22px; border-top: 1px solid #191919; }
+.project-entry--notext .project-title-line { align-items: center; gap: 16px; padding-bottom: 18px; border-bottom: 1px solid #19191926; }
+.project-entry--notext .project-title-line h3 { margin-right: auto; font-size: clamp(34px, 3.6vw, 50px); letter-spacing: -.05em; }
+.project-figure { display: grid; place-items: center; width: 46px; height: 46px; flex: none; border: 1px solid #191919; border-radius: 50%; font-size: 12px; letter-spacing: .02em; }
+.project-entry--notext .project-purpose { font-size: 18px; margin-top: 16px; }
+.project-entry--notext .project-facts { margin: 20px 0 0; padding-bottom: 0; border-bottom: 0; }
+.project-entry--notext .project-description { display: flex; flex-direction: column; justify-content: center; }
+
 .project-copy { padding-top: 20px; }
 .project-title-line { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
 .project-title-line h3 { font-size: clamp(25px, 2.3vw, 34px); font-weight: 500; letter-spacing: -.045em; line-height: 1.15; }
@@ -41,66 +58,9 @@
 .project-private { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: #68645d; }
 .project-entry--venture .project-copy { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; padding-top: 25px; }
 .project-entry--venture .project-facts { margin-bottom: 0; }
-.studio-composition { position: absolute; inset: 0; }
-.studio-word { position: absolute; left: 5%; top: 6%; font-size: clamp(100px, 16vw, 220px); letter-spacing: -.08em; font-weight: 500; line-height: 1; }
-.studio-word > span { font-size: .13em; letter-spacing: 0; vertical-align: super; margin-left: 15px; }
-.studio-object { position: absolute; width: 39%; height: 85%; right: 14%; bottom: -9%; transform: rotate(-10deg); }
-.studio-disc { position: absolute; right: 4%; top: 17%; width: 22%; aspect-ratio: 1; display: grid; place-items: center; border: 1px solid #f4f1ea66; border-radius: 50%; transform: rotate(10deg); background: #191919; }
-.studio-disc > span { font-size: clamp(17px, 2.8vw, 36px); line-height: 1.08; letter-spacing: -.04em; }
-.studio-disc i { color: #ff5a36; font-size: 1.2em; }
-.studio-foot { position: absolute; left: 5%; bottom: 16%; max-width: 160px; font-size: 12px; line-height: 1.5; }
-.pandu-map { width: 100%; height: 100%; }
-.cash-composition { position: absolute; inset: 40px 8% 35px; display: flex; flex-direction: column; justify-content: flex-end; }
-.cash-symbol { position: absolute; left: 0; top: -20px; font-size: 96px; line-height: 1; opacity: .9; }
-.cash-message { position: relative; align-self: flex-end; padding: 16px 18px 12px; background: #fbf9f4; border-radius: 16px 16px 0 16px; font-size: 14px; line-height: 1.4; transform: rotate(-3deg); }
-.cash-message > span { display: block; font-size: 24px; text-align: right; }
-.cash-entry { background: #191919; color: #f4f1ea; padding: 15px 18px; margin-top: 15px; transform: rotate(2deg); }
-.cash-entry > span { font-size: 9px; color: #d8f34a; text-transform: uppercase; letter-spacing: .08em; }
-.cash-entry p { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 5px 15px; font-size: 12px; margin-top: 8px; }
-.cash-entry strong { font-weight: 500; }
-.risk-composition { position: absolute; inset: 45px 7% 35px; display: flex; align-items: center; justify-content: space-between; gap: 15px; }
-.risk-caption { position: absolute; top: 0; left: 0; font-size: 10px; letter-spacing: .06em; text-transform: uppercase; }
-.risk-orbit { width: 47%; aspect-ratio: 1; max-height: 205px; border: 1px solid #f4f1ea99; border-radius: 50%; display: grid; place-items: center; transform: rotate(-12deg); }
-.risk-orbit > span { font-size: 64px; line-height: .8; }
-.risk-tones { display: flex; flex-direction: column; gap: 9px; width: 47%; }
-.risk-tones > span { border: 1px solid #f4f1ea66; padding: 8px 12px; border-radius: 40px; font-size: 12px; text-align: center; }
-.risk-tones > span:nth-child(2) { background: #f4f1ea; color: #2f4be0; transform: translateX(-12px); }
-.risk-note { position: absolute; bottom: 0; right: 0; font-size: 11px; }
-.booth-composition { position: absolute; inset: 43px 8% 36px; display: flex; justify-content: center; gap: 12px; align-items: center; }
-.project-photo-strip { width: 25%; max-width: 92px; background: #fbf9f4; padding: 6px; transform: rotate(-10deg); box-shadow: 0 10px 15px #1919191a; }
-.project-photo-strip:nth-child(2) { transform: translateY(-8px) rotate(6deg); }
-.project-photo-strip:nth-child(3) { transform: translateY(6px) rotate(15deg); }
-.project-photo-frame { display: block; position: relative; height: 47px; overflow: hidden; margin-bottom: 5px; background: #2f4be0; }
-.project-photo-frame i { position: absolute; width: 39px; height: 39px; border-radius: 50% 50% 0 0; background: #bfe8d0; bottom: -13px; left: 25%; }
-.project-photo-frame i::before { content: ""; position: absolute; width: 22px; height: 22px; background: inherit; border: 2px solid #2f4be0; border-radius: 50%; top: -17px; left: 8px; }
-.project-photo-frame--1 { background: #ff5a36; }
-.project-photo-frame--1 i { background: #e6dcc6; transform: rotate(20deg); }
-.project-photo-frame--1 i::before { border-color: #ff5a36; }
-.project-photo-frame--2 { background: #191919; }
-.project-photo-frame--2 i { background: #d8f34a; transform: rotate(-15deg); }
-.project-photo-frame--2 i::before { border-color: #191919; }
-.photo-strip-label { display: block; font-size: 5px; text-align: center; white-space: nowrap; }
-.booth-export { position: absolute; right: -2%; bottom: -10px; font-size: 10px; }
-.connect-flow { width: min(76%, 340px); margin: 44px auto 0; font-size: 11px; line-height: 1.3; }
-.connect-inquiry, .connect-work { padding: 10px 14px; background: #fbf9f4; border: 1px solid #19191926; }
-.connect-inquiry > span, .connect-work > span { font-size: 9px; text-transform: uppercase; letter-spacing: .06em; color: #68645d; }
-.connect-inquiry p { margin-top: 5px; }
-.connect-arrow { display: block; text-align: center; font-size: 18px; line-height: 1.1; color: #2f4be0; }
-.connect-work > div { border-left: 2px solid #2f4be0; padding-left: 9px; margin-top: 6px; }
-.connect-ai { color: #2f4be0; font-size: 10px; }
-.connect-work p { margin-top: 3px; }
-.connect-reply { background: #2f4be0; color: #fbf9f4; padding: 10px 14px; display: flex; justify-content: space-between; }
-.billing-composition { position: absolute; inset: 50px 12% 42px; display: grid; grid-template-columns: 1fr 32px; align-content: center; align-items: center; }
-.billing-composition > div { padding: 10px 0; border-bottom: 1px solid #19191933; }
-.billing-composition > div > span { display: block; font-size: 9px; text-transform: uppercase; letter-spacing: .07em; }
-.billing-composition strong { font-size: 25px; letter-spacing: -.04em; font-weight: 400; }
-.billing-operator { text-align: right; font-size: 28px; }
-.billing-composition > p { grid-column: 1 / -1; background: #191919; color: #f4f1ea; margin-top: 13px; padding: 10px 13px; display: flex; justify-content: space-between; font-size: 15px; }
-.billing-composition > p > span { color: #d8f34a; }
+
 @media (min-width: 1024px) {
-  .project-entry--nusakas { padding-top: 58px; }
-  .project-entry--photobooth { padding-top: 32px; }
-  .project-entry--riskala .project-cover { height: 332px; }
+  .project-entry--photobooth { padding-top: 44px; }
 }
 @media (max-width: 1023px) {
   .projects-gallery { column-gap: 24px; row-gap: 44px; }
@@ -110,12 +70,8 @@
   .projects-heading h2 { font-size: 55px; }
   .projects-intro { font-size: 13px; max-width: 225px; }
   .project-facts { grid-template-columns: 1fr; gap: 10px; }
-  .risk-orbit > span { font-size: 48px; }
-  .risk-tones > span { font-size: 10px; padding-inline: 7px; }
-  .cash-message { font-size: 12px; }
-  .cash-symbol { font-size: 80px; top: -5px; }
+  .project-entry--notext .project-copy { gap: 24px; }
   .project-entry--venture .project-copy { gap: 24px; }
-  .studio-object { width: 46%; right: 12%; }
 }
 @media (max-width: 639px) {
   .projects-heading { display: block; padding-bottom: 23px; }
@@ -127,18 +83,16 @@
   .project-entry + .project-entry { margin-top: 38px; }
   .project-cover { height: 280px; }
   .project-cover--venture { height: 290px; }
+  /* A phone frame is too narrow for a wide product shot: show the whole screen instead of
+     cropping its sides away. */
+  .project-cover--shot, .project-cover--venture.project-cover--shot { height: auto; }
+  .project-cover--shot .project-art { position: static; }
+  .project-shot { height: auto; object-fit: fill; }
   .project-entry--venture .project-copy { display: block; padding-top: 20px; }
   .project-entry--venture .project-facts { margin-bottom: 19px; }
+  .project-entry--notext .project-copy { display: block; }
+  .project-entry--notext .project-description { margin-top: 4px; }
   .project-facts { grid-template-columns: 1.1fr 1fr; gap: 14px; }
-  .studio-word { top: 19%; left: 6%; font-size: 86px; }
-  .studio-object { width: 67%; right: -1%; height: 66%; bottom: -1%; }
-  .studio-disc { width: 28%; right: 7%; top: 43%; }
-  .studio-disc > span { font-size: 17px; }
-  .studio-foot { bottom: 20%; left: 6%; max-width: 110px; font-size: 10px; }
-  .cash-symbol { font-size: 88px; }
-  .cash-message { font-size: 14px; }
-  .risk-orbit > span { font-size: 53px; }
-  .risk-tones > span { font-size: 11px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .projects-index a { transition: none; }
