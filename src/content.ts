@@ -36,6 +36,10 @@ export const nav = [
   { label: "Contact", href: "#contact" },
 ];
 
+/** The wide header drops Contact: the Contact Me button beside it already goes there. The sheet and
+ *  the progress bar keep the full list, so every section still has a row and a segment. */
+export const navTop = nav.filter((item) => item.href !== "#contact");
+
 /** From wrapped-2026.html: window.__WRAPPED__.totals and friends. */
 export const agentYear = {
   range: "17 Feb to 13 Nov 2026",

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
-import { nav } from "../content";
+import { nav, navTop } from "../content";
 
 /**
  * Fixed header. The segmented bar under it is the reference's story progress: one segment per
@@ -71,12 +71,12 @@ export function Nav() {
 
           <nav aria-label="Sections" className="hidden lg:block">
             <ul className="flex items-center gap-1">
-              {nav.map((n, i) => (
+              {navTop.map((n) => (
                 <li key={n.href}>
                   <a
                     href={n.href}
-                    aria-current={active === i ? "true" : undefined}
-                    className={`nav-section-link flex min-h-11 items-center rounded-full px-4 text-[15px] tracking-[-0.02em] transition-colors duration-200 hover:bg-ink/8 ${active === i ? "bg-ink text-paper hover:bg-ink" : ""}`}
+                    aria-current={active === nav.indexOf(n) ? "true" : undefined}
+                    className={`nav-section-link flex min-h-11 items-center rounded-full px-4 text-[15px] tracking-[-0.02em] transition-colors duration-200 hover:bg-ink/8 ${active === nav.indexOf(n) ? "bg-ink text-paper hover:bg-ink" : ""}`}
                   >
                     {n.label}
                   </a>
@@ -143,9 +143,6 @@ export function Nav() {
               </li>
             ))}
           </ul>
-          <a href="#contact" onClick={() => setOpen(false)} className="btn mt-8 w-full">
-            Contact Me
-          </a>
         </nav>
       </div>
     </header>
