@@ -20,7 +20,7 @@ html.intro-leaving .intro {
 
 html.intro-leaving .intro {
   opacity: 0;
-  transition: opacity 600ms var(--ease, cubic-bezier(0.22, 1, 0.36, 1));
+  transition: opacity 400ms var(--ease, cubic-bezier(0.22, 1, 0.36, 1));
 }
 
 /* The hero's halftone disc prints above the curtain, so the viewer watches the disc form. */

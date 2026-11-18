@@ -22,7 +22,7 @@ export function Hero() {
       />
       <div
         className="pop absolute bottom-[-72vw] right-[-40vw] aspect-square w-[92vw] sm:bottom-[-34vw] sm:right-[-22vw] sm:w-[70vw] lg:bottom-[-30vw] lg:right-[-14vw] lg:w-[52vw]"
-        style={{ "--delay": "0.9s" } as React.CSSProperties}
+        style={{ "--delay": "0.5s" } as React.CSSProperties}
         aria-hidden="true"
       >
         <div className="breathe size-full rounded-full bg-cobalt" />
@@ -32,7 +32,7 @@ export function Hero() {
       </div>
       <span
         className="grow-x glint absolute bottom-[19svh] left-0 h-3 w-[46vw] bg-tomato sm:h-3.5"
-        style={{ "--delay": "1.2s", "--glint": "3s" } as React.CSSProperties}
+        style={{ "--delay": "0.7s", "--glint": "3s" } as React.CSSProperties}
         aria-hidden="true"
       />
       <Dots dots={DOTS} />
@@ -46,14 +46,14 @@ export function Hero() {
               <Rise at={0.92}>Dani</Rise>
             </span>
             <span className="mt-4 block text-[clamp(24px,3.2vw,46px)] leading-[1.12] tracking-[-0.045em] sm:mt-6">
-              <span className="hl wipe" style={{ "--delay": "1.4s" } as React.CSSProperties}>
+              <span className="hl wipe" style={{ "--delay": "0.85s" } as React.CSSProperties}>
                  CTO &amp; Product Engineer
               </span>
             </span>
           </h1>
         </div>
 
-        <div className="enter max-w-[620px]" style={{ "--delay": "1.7s" } as React.CSSProperties}>
+        <div className="enter max-w-[620px]" style={{ "--delay": "1.0s" } as React.CSSProperties}>
           <p className="mono text-[13px] uppercase tracking-[0.04em] opacity-70">Student · Indonesia · on GitHub since 2025</p>
           <p className="lead halo mt-3">
             I build web apps, AI tools and WhatsApp automations for small businesses, teams and events, front end first and

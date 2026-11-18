@@ -1,11 +1,11 @@
 import "../intro.css";
 
 /** The curtain stays up at least this long, so the hero's halftone disc has time to print. */
-const MIN_MS = 1500;
+const MIN_MS = 1000;
 /** The curtain lifts after this long even if the page is still loading. */
-const MAX_MS = 3000;
+const MAX_MS = 2400;
 /** Matches the opacity transition in src/intro.css. */
-const FADE_MS = 600;
+const FADE_MS = 400;
 
 /**
  * Runs the loading screen on every visit. index.html has already set `intro-running` on <html>, or

@@ -198,7 +198,7 @@ export function Halftone({ circles, pitch = 7, seed = 1, className = "", style, 
       raf = requestAnimationFrame(loop);
       const active = pointer.target > 0 || pointer.on > 0.02;
       const t = (now - t0) / 1000;
-      if (now - last < (active ? 24 : finePointer || t < 2.6 ? 60 : 400)) return;
+      if (now - last < (active ? 24 : finePointer || t < 1.6 ? 60 : 400)) return;
       const dt = Math.min(0.1, (now - last) / 1000);
       last = now;
       pointer.on += (pointer.target - pointer.on) * (1 - Math.exp(-dt * 6));
