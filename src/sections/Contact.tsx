@@ -42,7 +42,7 @@ export function Contact() {
                   </span>
                   <span className="flex flex-1 flex-col">
                     <span className="text-[24px] leading-[1.1] tracking-[-0.04em]">{s.label}</span>
-                    <span className="text-[14px] opacity-80">{s.handle}</span>
+                    <span className="text-[14px] opacity-90">{s.handle}</span>
                   </span>
                   <span className="text-[22px] transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-1" aria-hidden="true">
                     ↗

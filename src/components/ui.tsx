@@ -98,8 +98,10 @@ export function CountUp({ to, run, duration = 1800 }: { to: number; run: boolean
     return () => cancelAnimationFrame(raf);
   }, [run, to, duration, reduced]);
   return (
-    <span className="tnum" aria-label={to.toLocaleString("en-US")}>
+    <span className="tnum">
       <span aria-hidden="true">{value.toLocaleString("en-US")}</span>
+      {/* The animating digits are hidden, so screen readers get the final figure once. */}
+      <span className="sr-only">{to.toLocaleString("en-US")}</span>
     </span>
   );
 }

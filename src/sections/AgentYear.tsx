@@ -45,7 +45,7 @@ export function AgentYear() {
             {TOOLS.map((t, i) => (
               <li key={t.label} data-motion="slide" data-stagger={i % 3} className="group grid grid-cols-[1fr_auto] gap-x-3 gap-y-1.5 text-[18px] tracking-[-0.03em] transition-[translate] duration-300 hover:translate-x-1.5">
                 <span>{t.label}</span>
-                <span className="tnum opacity-75 group-hover:opacity-100">{t.count.toLocaleString("en-US")}</span>
+                <span className="tnum opacity-90 group-hover:opacity-100">{t.count.toLocaleString("en-US")}</span>
                 <span className="col-span-2 h-2.5 bg-ink/15">
                   <span
                     data-motion="rule"

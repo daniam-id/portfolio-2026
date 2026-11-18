@@ -70,7 +70,7 @@
 .svc__item h3 { margin: 0; font-size: clamp(25px, 2.6vw, 40px); font-weight: 500; line-height: 1; letter-spacing: -0.06em; }
 .svc__body { max-width: 43ch; margin: 26px 0 0; font-size: 15px; line-height: 1.65; }
 .svc__tools { margin-top: 34px; padding-top: 14px; border-top: 1px solid rgb(25 25 25 / 0.18); }
-.svc__tools-label { display: block; margin-bottom: 11px; color: rgb(25 25 25 / 0.55); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+.svc__tools-label { display: block; margin-bottom: 11px; color: rgb(25 25 25 / 0.68); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
 .svc__tools ul { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 0; padding: 0; list-style: none; }
 .svc__tools li { font-size: 14px; line-height: 1.5; }
 .svc__tools li::before { content: "↳"; margin-right: 7px; color: rgb(25 25 25 / 0.5); }

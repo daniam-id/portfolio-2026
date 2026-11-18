@@ -98,7 +98,7 @@ export function Creative() {
               </div>
               <figcaption className="creative-credit">
                 <span>{photo.credit}</span>
-                <a href={photo.page} target="_blank" rel="noopener noreferrer" aria-label={`View source and license on Wikimedia Commons: ${photo.alt} (opens in a new tab)`}>
+                <a href={photo.page} target="_blank" rel="noopener noreferrer" aria-label={`Source & license for ${photo.alt} on Wikimedia Commons (opens in a new tab)`}>
                   Source &amp; license <span aria-hidden="true">↗</span>
                 </a>
               </figcaption>
