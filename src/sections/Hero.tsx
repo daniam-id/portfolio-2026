@@ -43,7 +43,7 @@ export function Hero() {
           <h1 id="hero-title" className="mt-5 sm:mt-6">
             <span className="display halo block text-[clamp(84px,min(15vw,18.5svh),232px)]">
               <Rise at={0.8}>Adam</Rise>
-              <Rise at={0.92}>Dani</Rise>
+              <Rise at={0.92}>Daniam</Rise>
             </span>
             <span className="mt-4 block text-[clamp(24px,3.2vw,46px)] leading-[1.12] tracking-[-0.045em] sm:mt-6">
               <span className="hl wipe" style={{ "--delay": "0.85s" } as React.CSSProperties}>

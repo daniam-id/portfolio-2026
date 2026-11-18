@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
-import { nav, navTop } from "../content";
+import { nav, navTop, person } from "../content";
 
 /**
  * Fixed header. The segmented bar under it is the reference's story progress: one segment per
@@ -66,7 +66,7 @@ export function Nav() {
             <span className="grid size-9 place-items-center rounded-[8px] bg-ink font-mono text-[15px] text-lime transition-transform duration-300 group-hover:-rotate-6" aria-hidden="true">
               &gt;_
             </span>
-            <span>Adam Dani</span>
+            <span>{person.short}</span>
           </a>
 
           <nav aria-label="Sections" className="hidden lg:block">

@@ -10,7 +10,7 @@ export type Tone = "tomato" | "cobalt" | "lime" | "mint" | "sand" | "ink" | "pap
 
 export const person = {
   name: "Adam Dani Apta Mahendra",
-  short: "Adam Dani",
+  short: "Adam Daniam",
   role: "CTO & Product Engineer",
   country: "Indonesia",
   email: "adam.daniamm@gmail.com",
