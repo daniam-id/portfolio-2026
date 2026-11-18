@@ -63,6 +63,11 @@ export function Hero() {
             <a href="#projects" className="btn">
               Explore Projects <span className="arrow" aria-hidden="true">→</span>
             </a>
+            <div className="lg:hidden">
+              <a href="#contact" className="btn btn--ghost w-full bg-paper/70 backdrop-blur-sm">
+                Contact Me
+              </a>
+            </div>
           </div>
         </div>
       </div>
