@@ -190,14 +190,18 @@ export function Halftone({ circles, pitch = 7, seed = 1, className = "", style, 
       }
     };
 
+    // Touch screens never get the pointer distortion, so their drift only needs a few frames a second.
+    // The opening spread still prints at full speed everywhere, and so does mouse hover.
+    const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
     const loop = (now: number) => {
       raf = requestAnimationFrame(loop);
       const active = pointer.target > 0 || pointer.on > 0.02;
-      if (now - last < (active ? 24 : 60)) return;
+      const t = (now - t0) / 1000;
+      if (now - last < (active ? 24 : finePointer || t < 2.6 ? 60 : 400)) return;
       const dt = Math.min(0.1, (now - last) / 1000);
       last = now;
       pointer.on += (pointer.target - pointer.on) * (1 - Math.exp(-dt * 6));
-      const t = (now - t0) / 1000;
       if (t < 1.2) for (const i of inks) paint(i, t); // the opening spread draws every layer
       else paint(inks[turn++ % inks.length], t);
       compose();
