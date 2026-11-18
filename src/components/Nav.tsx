@@ -86,9 +86,11 @@ export function Nav() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <a href="#contact" className="btn hidden !min-h-11 !px-5 !text-[15px] sm:inline-flex">
-              Contact Me
-            </a>
+            <div className="hidden lg:block">
+              <a href="#contact" className="btn !min-h-11 !px-5 !text-[15px]">
+                Contact Me
+              </a>
+            </div>
             <button
               ref={toggle}
               type="button"
