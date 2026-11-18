@@ -45,8 +45,13 @@ export function useSmoothScroll(): void {
       }
     };
 
-    // Native scrolling moves the page without us. Follow it whenever no glide is running.
+    // Native scrolling moves the page without us. A jump we did not make (keyboard, scrollbar, anchor,
+    // a restored position) wins over a glide in progress, so it cannot drag the page back.
     const onScroll = () => {
+      if (frame && Math.abs(window.scrollY - current) > 2) {
+        cancelAnimationFrame(frame);
+        frame = 0;
+      }
       if (!frame) target = current = window.scrollY;
     };
 
