@@ -11,10 +11,12 @@ npm run build     # type-check, build, then prerender the page into dist/index.h
 npm run preview
 ```
 
+Belum dipindah ke `adamdev.web.id`: lihat `TODO-domain.md` sebelum mengubah `canonical` atau `og:url`.
+
 ## Where things live
 
 - `src/content.ts`: every fact, link and photo on the page. Edit copy here.
-- `src/sections/*`: one file per section (Hero, About, AgentYear, Services, Projects, Experience, Creative, Contact).
+- `src/sections/*`: one file per section (Hero, About, AgentYear, Services, Projects, Experience, Contact).
 - `src/components/Halftone.tsx`: the halftone canvas (sleeps off screen, still under reduced motion).
 - `src/index.css`: tokens, type, buttons, cards and the motion layer.
 - `scripts/prerender.mjs`: writes the server-rendered HTML into `dist/index.html` for SEO.
