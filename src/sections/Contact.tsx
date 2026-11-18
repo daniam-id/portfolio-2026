@@ -1,4 +1,4 @@
-import { person, photos, socials } from "../content";
+import { person, socials } from "../content";
 import { Halftone } from "../components/Halftone";
 import { Icon } from "../components/ui";
 
@@ -55,18 +55,9 @@ export function Contact() {
 
         <div className="flex flex-col gap-3 border-t border-paper/30 pt-5 text-[14px] sm:flex-row sm:items-start sm:justify-between">
           <p>© 2026 {person.name}</p>
-          <details className="group max-w-[42em] sm:text-right">
-            <summary className="link inline-flex min-h-11 cursor-pointer list-none items-center">Photographs via Wikimedia Commons</summary>
-            <ul className="mt-2 grid gap-1 opacity-85">
-              {photos.map((p) => (
-                <li key={p.src}>
-                  <a className="link" href={p.page} target="_blank" rel="noopener">
-                    {p.credit}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </details>
+          <a href="#top" className="link inline-flex min-h-11 items-center gap-2 self-start sm:self-auto">
+            Back to top <span aria-hidden="true">↑</span>
+          </a>
         </div>
       </div>
     </footer>
