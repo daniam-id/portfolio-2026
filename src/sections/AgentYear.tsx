@@ -7,13 +7,10 @@ import { CountUp, SectionHead, useInView } from "../components/ui";
 const TOOLS = [
   { label: "Shell commands", count: 19274 },
   { label: "File reads", count: 14595 },
-  { label: "Other tools", count: 9575 },
   { label: "File edits", count: 7727 },
   { label: "Searches", count: 7395 },
   { label: "Plans", count: 1985 },
   { label: "Browser actions", count: 1104 },
-  { label: "Web lookups", count: 822 },
-  { label: "Sub-agents", count: 732 },
 ];
 const MAX = TOOLS[0].count;
 const DISC = [{ x: 0.5, y: 0.5, r: 0.49 }];
