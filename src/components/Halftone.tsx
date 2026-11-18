@@ -53,7 +53,9 @@ export function Halftone({ circles, pitch = 7, seed = 1, className = "", style, 
     let raf = 0;
     let last = 0;
     let visible = false;
-    const t0 = performance.now();
+    // Start already a little way into the print, so the first painted frame has ink instead of
+    // empty canvas while the curtain is up.
+    const t0 = performance.now() - 400;
     const pointer = { x: 0.5, y: 0.5, on: 0, target: 0 };
 
     /** Per screen, the dots that can ever show, with their static trig terms worked out once. */
