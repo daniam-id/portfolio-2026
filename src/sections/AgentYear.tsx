@@ -20,7 +20,7 @@ export function AgentYear() {
   const [ref, seen] = useInView<HTMLDivElement>({ threshold: 0.3 });
   const y = agentYear;
   return (
-    <section id="ai-year" aria-labelledby="ai-title" className="section t-tomato [--halo:var(--color-tomato)]">
+    <section id="ai-year" aria-labelledby="ai-title" className="section t-tomato [--halo:var(--accent-tomato-surface)]">
       <Halftone circles={DISC} inks={INKS} seed={11} pitch={7} className="right-[-34vw] top-[-12svh] aspect-square w-[70vw] sm:right-[-18vw] sm:w-[48vw] lg:right-[-8vw] lg:top-[-16svh] lg:w-[min(34vw,520px)]" />
 
       <div ref={ref} className="wrap grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-6">
@@ -46,7 +46,7 @@ export function AgentYear() {
               <li key={t.label} data-motion="slide" data-stagger={i % 3} className="group grid grid-cols-[1fr_auto] gap-x-3 gap-y-1.5 text-[18px] tracking-[-0.03em] transition-[translate] duration-300 hover:translate-x-1.5">
                 <span>{t.label}</span>
                 <span className="tnum opacity-90 group-hover:opacity-100">{t.count.toLocaleString("en-US")}</span>
-                <span className="col-span-2 h-2.5 bg-ink/15">
+                <span className="agent-year-bar-track col-span-2 h-2.5">
                   <span
                     data-motion="rule"
                     className="bar glint h-full transition-[scale] duration-1000"

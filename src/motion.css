@@ -7,7 +7,7 @@
 .btn:focus-visible { transform: translateY(-2px); }
 .btn:focus-visible .arrow { transform: translateX(4px); }
 .btn { transition: transform var(--feedback), background-color var(--feedback), color var(--feedback), box-shadow var(--feedback); }
-.btn:hover, .btn:focus-visible { box-shadow: 0 7px 0 -3px rgb(25 25 25 / .18); }
+.btn:hover, .btn:focus-visible { box-shadow: var(--shadow-feedback); }
 .btn:active { box-shadow: none; }
 a > span[aria-hidden="true"] { transition: translate var(--feedback); }
 :is(.project-links, .projects-intro) a:is(:hover, :focus-visible) > span[aria-hidden="true"],
@@ -25,7 +25,7 @@ a > span[aria-hidden="true"] { transition: translate var(--feedback); }
 .experience__chapter::before { transform-origin: top; }
 .experience__chapter[data-arrived="true"]::before { animation: timeline-draw 800ms var(--ease) both; }
 .experience__node { transition: box-shadow var(--feedback); }
-.experience__chapter:focus-within .experience__node { box-shadow: 0 0 0 6px rgb(25 25 25 / .1); }
+.experience__chapter:focus-within .experience__node { box-shadow: 0 0 0 6px color-mix(in srgb, var(--text-primary) 10%, transparent); }
 @keyframes timeline-draw { from { transform: scaleY(0); } to { transform: scaleY(1); } }
 .nav-section-link { transition: background-color var(--feedback), color var(--feedback), transform var(--feedback); }
 .nav-section-link:active { transform: scale(.95); }
@@ -33,13 +33,13 @@ a > span[aria-hidden="true"] { transition: translate var(--feedback); }
 [data-open="false"] .nav-menu-link { transform: translateY(20px); opacity: 0; }
 [data-open="true"] .nav-menu-link { transition-delay: calc(var(--menu-index) * 45ms + 70ms); }
 @media (hover: hover) and (pointer: fine) {
-  .ab__principle:hover h4 { translate: 8px 0; color: var(--color-cobalt); }
+  .ab__principle:hover h4 { translate: 8px 0; color: var(--accent-cobalt-text); }
   .ab__principle:hover .ab__number { translate: 0 -4px; }
   .svc__item:hover::after { opacity: .035; }
   .svc__item:hover h3 { translate: 6px 0; }
   .svc__item:hover .svc__number { translate: 0 -5px; }
   .project-entry:hover .project-cover-index { translate: 6px 0; }
-  .experience__chapter:hover .experience__node { box-shadow: 0 0 0 6px rgb(25 25 25 / .1); }
+  .experience__chapter:hover .experience__node { box-shadow: 0 0 0 6px color-mix(in srgb, var(--text-primary) 10%, transparent); }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }

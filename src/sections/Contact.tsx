@@ -7,7 +7,7 @@ const INKS = [0, 2, 3];
 
 export function Contact() {
   return (
-    <footer id="contact" aria-labelledby="contact-title" className="section t-cobalt on-cobalt [--halo:var(--color-cobalt)]">
+    <footer id="contact" aria-labelledby="contact-title" className="section t-cobalt on-cobalt [--halo:var(--accent-cobalt-surface)]">
       <Halftone circles={DISC} inks={INKS} seed={23} pitch={7} className="bottom-[-30%] left-[-40vw] aspect-square w-[100vw] opacity-80 sm:left-[-22vw] sm:w-[70vw] lg:bottom-[-42%] lg:left-[-12vw] lg:w-[min(52vw,760px)]" />
 
       <div className="wrap flex min-h-[calc(100svh-var(--padt)-var(--padb))] flex-col justify-between gap-14">
@@ -19,7 +19,7 @@ export function Contact() {
             </p>
             <h2 id="contact-title" className="mt-6 text-[clamp(52px,8vw,120px)] leading-[0.9] tracking-[-0.065em]">
               <span className="halo">Contact.</span> <br />
-              <span className="mt-2 inline-block -rotate-2 bg-lime px-[0.2em] pb-[0.1em] text-ink">Send me the slow job.</span>
+              <span className="contact-highlight mt-2 inline-block -rotate-2 px-[0.2em] pb-[0.1em]">Send me the slow job.</span>
             </h2>
             <p className="lead halo mt-8">
               Tell me what you want built, or the manual task you want gone. I reply in English or Bahasa Indonesia.
@@ -31,13 +31,13 @@ export function Contact() {
 
           <ul className="self-end lg:col-span-5 lg:col-start-8">
             {socials.map((s) => (
-              <li key={s.label} className="border-b border-paper/30 first:border-t">
+              <li key={s.label} className="contact-divider border-b first:border-t">
                 <a
                   href={s.href}
                   {...(s.href.startsWith("http") ? { target: "_blank", rel: "me noopener" } : {})}
                   className="group flex min-h-[76px] items-center gap-4 py-3 transition-[padding] duration-300 hover:pl-2"
                 >
-                  <span className="grid size-11 shrink-0 place-items-center rounded-full bg-paper-2 transition-transform duration-300 group-hover:-rotate-6">
+                  <span className="icon-logo-backing grid size-11 shrink-0 place-items-center rounded-full transition-transform duration-300 group-hover:-rotate-6">
                     <Icon name={s.icon} size={22} />
                   </span>
                   <span className="flex flex-1 flex-col">
@@ -53,7 +53,7 @@ export function Contact() {
           </ul>
         </div>
 
-        <div className="flex flex-col gap-3 border-t border-paper/30 pt-5 text-[14px] sm:flex-row sm:items-start sm:justify-between">
+        <div className="contact-divider flex flex-col gap-3 border-t pt-5 text-[14px] sm:flex-row sm:items-start sm:justify-between">
           <p>© 2026 {person.name}</p>
           <a href="#top" className="link inline-flex min-h-11 items-center gap-2 self-start sm:self-auto">
             Back to top <span aria-hidden="true">↑</span>

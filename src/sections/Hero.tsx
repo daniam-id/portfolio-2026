@@ -6,7 +6,7 @@ const DOTS = [
   { x: 8, y: 14, size: 14, color: "var(--color-tomato)", at: 1.7 },
   { x: 14, y: 22, size: 9, color: "var(--color-tomato)", at: 1.76 },
   { x: 6, y: 34, size: 11, color: "var(--color-cobalt)", at: 1.9 },
-  { x: 54, y: 18, size: 10, color: "var(--color-ink)", at: 2 },
+  { x: 54, y: 18, size: 10, color: "var(--confetti-neutral)", at: 2 },
   { x: 47, y: 62, size: 12, color: "var(--color-lime)", at: 2.1 },
 ];
 
@@ -64,7 +64,7 @@ export function Hero() {
               Explore Projects <span className="arrow" aria-hidden="true">→</span>
             </a>
             <div className="lg:hidden">
-              <a href="#contact" className="btn btn--ghost w-full bg-paper/70 backdrop-blur-sm">
+              <a href="#contact" className="hero-contact-btn btn btn--ghost w-full backdrop-blur-sm">
                 Contact Me
               </a>
             </div>

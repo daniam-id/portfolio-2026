@@ -32,12 +32,97 @@
 }
 
 :root {
+  /* Theme-aware UI colors stay separate from the fixed artwork palette above. */
+  --theme-light: #f4f1ea;
+  --theme-dark: #23221f;
+  --surface-page: var(--theme-light);
+  --surface-secondary: #fbf9f4;
+  --text-primary: #191919;
+  --text-muted: #625f58;
+  --text-project-muted: #68645d;
+  --text-project-body: #4c4943;
+  --border-subtle: #d9d2c5;
+  --shadow-canvas: 0 24px 50px -28px rgb(25 25 25 / 0.45);
+  --shadow-surface: 0 12px 32px -20px rgb(25 25 25 / 0.28);
+  --shadow-feedback: 0 7px 0 -3px rgb(25 25 25 / 0.18);
+  --outline-focus: #2f4be0;
+
+  /* Fixed ink, paper, and bright graphic colors; never invert these globally. */
+  --art-ink: var(--color-ink);
+  --art-paper: var(--color-paper);
+  --accent-tomato-graphic: var(--color-tomato);
+  --accent-cobalt-graphic: var(--color-cobalt);
+  --accent-lime-graphic: var(--color-lime);
+  --accent-mint-graphic: var(--color-mint);
+
+  /* Tunable surface/foreground pairs for larger accent-colored surfaces. */
+  --accent-tomato-surface: var(--color-tomato);
+  --accent-tomato-foreground: #191919;
+  --accent-mint-surface: var(--color-mint);
+  --accent-mint-foreground: #191919;
+  --accent-lime-surface: var(--color-lime);
+  --accent-lime-foreground: #191919;
+  --accent-cobalt-surface: var(--color-cobalt);
+  --accent-cobalt-foreground: #f4f1ea;
+  --accent-cobalt-text: #2f4be0;
+  --accent-project-rust: #c43d20;
+  --accent-project-rust-hover: #b9361b;
+  --accent-sand-surface: var(--color-sand);
+  --accent-sand-foreground: #191919;
+  --highlight-surface: var(--color-ink);
+  --highlight-foreground: var(--color-paper);
+  --tag-surface: var(--color-ink);
+  --tag-foreground: var(--color-paper);
+  --confetti-neutral: #191919;
+
+  --status-success: #26714d;
+  --status-warning: #8a5812;
+  --status-danger: #a63828;
+
   --gut: 24px;
   --nav: 64px;
   --padt: 104px;
   --padb: 64px;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   color-scheme: light;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --surface-page: var(--theme-dark);
+  --surface-secondary: #302f2b;
+  --text-primary: #f4f1ea;
+  --text-muted: #c0bbb1;
+  --text-project-muted: var(--text-muted);
+  --text-project-body: var(--text-muted);
+  --border-subtle: #514e47;
+  --shadow-canvas: 0 24px 50px -28px rgb(0 0 0 / 0.62);
+  --shadow-surface: 0 12px 32px -20px rgb(0 0 0 / 0.48);
+  --shadow-feedback: 0 7px 0 -3px rgb(0 0 0 / 0.36);
+  --outline-focus: #b9c4ff;
+
+  --accent-tomato-surface: #813322;
+  --accent-tomato-foreground: #fff1e9;
+  --accent-mint-surface: #2d5140;
+  --accent-mint-foreground: #e5f3e9;
+  --accent-lime-surface: #53611b;
+  --accent-lime-foreground: #f5f3e7;
+  --accent-cobalt-surface: var(--color-cobalt);
+  --accent-cobalt-foreground: #f2f3ff;
+  --accent-cobalt-text: #b9c4ff;
+  --accent-project-rust: #ff9b7c;
+  --accent-project-rust-hover: #ffad93;
+  --accent-sand-surface: #574a35;
+  --accent-sand-foreground: #f5f0e6;
+  --highlight-surface: var(--surface-secondary);
+  --highlight-foreground: var(--text-primary);
+  --tag-surface: var(--surface-secondary);
+  --tag-foreground: var(--text-primary);
+  --confetti-neutral: #f4f1ea;
+
+  --status-success: #86d6a5;
+  --status-warning: #f0c16e;
+  --status-danger: #ff9a86;
 }
 @media (min-width: 640px) {
   :root { --gut: 48px; --nav: 72px; --padt: 120px; --padb: 80px; }
@@ -56,8 +141,8 @@ html {
 
 body {
   margin: 0;
-  background: var(--color-paper);
-  color: var(--color-ink);
+  background: var(--surface-page);
+  color: var(--text-primary);
   font-family: var(--font-sans);
   font-size: 16px;
   line-height: 1.6;
@@ -66,14 +151,20 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-::selection { background: var(--color-lime); color: var(--color-ink); }
+::selection { background: var(--accent-lime-surface); color: var(--accent-lime-foreground); }
 
 :focus-visible {
-  outline: 3px solid var(--color-cobalt);
+  outline: 3px solid var(--outline-focus);
   outline-offset: 3px;
   border-radius: 6px;
 }
 .on-dark :focus-visible, .on-cobalt :focus-visible { outline-color: var(--color-lime); }
+
+/* Dark ink belongs to fixed artwork, not to the active page palette. */
+.on-dark .btn, .on-cobalt .btn { --bg: var(--accent-cobalt-foreground); --fg: var(--art-ink); }
+html[data-theme="dark"] .on-dark .btn,
+html[data-theme="dark"] .on-cobalt .btn { --bg: var(--accent-cobalt-foreground); --fg: var(--art-ink); }
+.on-dark .btn.btn--ink { --bg: var(--art-ink); --fg: var(--art-paper); }
 
 /* ------------------------------------------------------------------
    Layout: one wrap, equal edges, sections a screen tall
@@ -100,13 +191,17 @@ body {
   top: 12px;
   z-index: 100;
   transform: translateY(-160%);
-  background: var(--color-ink);
-  color: var(--color-paper);
+  background: var(--highlight-surface);
+  color: var(--highlight-foreground);
   padding: 12px 16px;
   border-radius: 10px;
   font-weight: 500;
 }
 .skip:focus { transform: none; }
+
+.nav-header-surface {
+  background-color: color-mix(in srgb, var(--surface-page) 90%, transparent);
+}
 
 /* ------------------------------------------------------------------
    Type
@@ -143,20 +238,20 @@ body {
 /* The ink highlight block from the reference (.hl) */
 .hl {
   display: inline-block;
-  background: var(--color-ink);
-  color: var(--color-paper);
+  background: var(--text-primary);
+  color: var(--surface-page);
   padding: 0.06em 0.3em 0.12em;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
 }
-.hl--lime { background: var(--color-lime); color: var(--color-ink); }
+.hl--lime { background: var(--accent-lime-surface); color: var(--accent-lime-foreground); }
 
 /* Paper halo around type sitting over halftone dots */
 .halo {
   text-shadow:
-    0 0 0.04em var(--halo, var(--color-paper)),
-    0 0 0.12em var(--halo, var(--color-paper)),
-    0 0 0.3em var(--halo, var(--color-paper));
+    0 0 0.04em var(--halo, var(--surface-page)),
+    0 0 0.12em var(--halo, var(--surface-page)),
+    0 0 0.3em var(--halo, var(--surface-page));
 }
 
 /* ------------------------------------------------------------------
@@ -166,8 +261,8 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: var(--color-ink);
-  color: var(--color-paper);
+  background: var(--tag-surface);
+  color: var(--tag-foreground);
   font-family: var(--font-mono);
   font-size: 14px;
   line-height: 1;
@@ -184,8 +279,9 @@ body {
   animation: blink 1s steps(2, jump-none) infinite;
 }
 .tag--paper { background: var(--color-paper); color: var(--color-ink); }
-.tag--paper .tag__caret { color: var(--color-cobalt); }
+.tag--paper .tag__caret { color: var(--accent-cobalt-text); }
 .tag--paper .tag__cursor { background: var(--color-tomato); }
+html[data-theme="dark"] .tag--paper { background: var(--surface-secondary); color: var(--text-primary); }
 @keyframes blink { to { opacity: 0; } }
 
 /* ------------------------------------------------------------------
@@ -266,8 +362,8 @@ body {
    Buttons: one pair. Step on hover, press on click.
 ------------------------------------------------------------------ */
 .btn {
-  --bg: var(--color-ink);
-  --fg: var(--color-paper);
+  --bg: var(--text-primary);
+  --fg: var(--surface-page);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -292,9 +388,9 @@ body {
 .btn:hover .arrow { transform: translateX(3px); }
 .btn--ghost { background: transparent; color: var(--bg); }
 .btn--ghost:hover { background: var(--bg); color: var(--fg); }
-.on-dark .btn, .on-cobalt .btn { --bg: var(--color-paper); --fg: var(--color-ink); }
-.on-dark .btn.btn--ink { --bg: var(--color-ink); --fg: var(--color-paper); }
-.btn--lime { --bg: var(--color-lime); --fg: var(--color-ink); }
+.btn--lime { --bg: var(--accent-lime-surface); --fg: var(--accent-lime-foreground); }
+.btn.btn--ghost.hero-contact-btn { background: color-mix(in srgb, var(--surface-page) 70%, transparent); }
+.btn.btn--ghost.hero-contact-btn:hover { background: var(--bg); }
 
 /* Text links: underline draws on hover */
 .link {
@@ -305,6 +401,28 @@ body {
   padding-bottom: 2px;
 }
 .link:hover, .link:focus-visible { background-size: 100% 1.5px; }
+
+/* Quiet, text-only theme action in the existing header control group. */
+.theme-toggle {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-primary);
+  font: 500 15px/1 var(--font-sans);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.theme-toggle:hover { background: var(--surface-secondary); }
+.theme-toggle__dark-label,
+.theme-toggle__light-label { display: none; }
+html:not([data-theme="dark"]) .theme-toggle__dark-label { display: inline; }
+html[data-theme="dark"] .theme-toggle__light-label { display: inline; }
 
 /* ------------------------------------------------------------------
    Chips
@@ -337,14 +455,51 @@ body {
 /* ------------------------------------------------------------------
    Tones
 ------------------------------------------------------------------ */
-.t-paper { background: var(--color-paper); color: var(--color-ink); }
-.t-paper2 { background: var(--color-paper-2); color: var(--color-ink); }
+.t-paper { background: var(--surface-page); color: var(--text-primary); }
+.t-paper2 { background: var(--surface-secondary); color: var(--text-primary); }
 .t-ink { background: var(--color-ink); color: var(--color-paper); }
-.t-tomato { background: var(--color-tomato); color: var(--color-ink); }
-.t-cobalt { background: var(--color-cobalt); color: var(--color-paper); }
-.t-lime { background: var(--color-lime); color: var(--color-ink); }
-.t-mint { background: var(--color-mint); color: var(--color-ink); }
-.t-sand { background: var(--color-sand); color: var(--color-ink); }
+.t-tomato { background: var(--accent-tomato-surface); color: var(--accent-tomato-foreground); }
+.t-cobalt { background: var(--accent-cobalt-surface); color: var(--accent-cobalt-foreground); }
+.t-lime { background: var(--accent-lime-surface); color: var(--accent-lime-foreground); }
+.t-mint { background: var(--accent-mint-surface); color: var(--accent-mint-foreground); }
+.t-sand { background: var(--accent-sand-surface); color: var(--accent-sand-foreground); }
+
+.hl--lime { background: var(--accent-lime-surface); color: var(--accent-lime-foreground); }
+
+/* Multicolour logos remain on their original light discs in either theme. */
+.tool-logo-backing,
+.icon-logo-backing { background: var(--color-paper-2); }
+
+/* Header controls and progress bar retain their ink-and-lime artwork, with deliberate pairs. */
+.nav-header-surface .nav-section-link[aria-current="true"] {
+  background: var(--text-primary);
+  color: var(--surface-page);
+}
+.nav-header-surface .nav-section-link:hover:not([aria-current="true"]) {
+  background: color-mix(in srgb, var(--text-primary) 8%, transparent);
+}
+.nav-header-surface > .wrap[aria-hidden="true"] > span {
+  background: color-mix(in srgb, var(--text-primary) 15%, transparent);
+}
+.nav-header-surface > .wrap[aria-hidden="true"] > span > span { background: var(--text-primary); }
+html[data-theme="dark"] .nav-header-surface a.group > span:first-child {
+  background: var(--surface-secondary);
+  color: var(--accent-lime-graphic);
+}
+html[data-theme="dark"] .nav-header-surface button[aria-controls="menu"] {
+  background: var(--text-primary);
+  color: var(--surface-page);
+}
+#menu {
+  background: var(--accent-lime-surface);
+  color: var(--accent-lime-foreground);
+}
+#menu li { border-color: color-mix(in srgb, var(--accent-lime-foreground) 20%, transparent); }
+
+.agent-year-bar-track { background: color-mix(in srgb, currentColor 15%, transparent); }
+.contact-highlight { background: var(--accent-lime-surface); color: var(--accent-lime-foreground); }
+.contact-divider { border-color: color-mix(in srgb, var(--accent-cobalt-foreground) 30%, transparent); }
+.experience__kind { color: color-mix(in srgb, var(--accent-mint-foreground) 68%, var(--accent-mint-surface)); opacity: 1; }
 
 /* ------------------------------------------------------------------
    Cards: one family. Linked surfaces lift 2px.
@@ -353,11 +508,11 @@ body {
   border-radius: 18px;
   overflow: hidden;
   transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
-  box-shadow: 0 0 0 rgb(25 25 25 / 0);
+  box-shadow: 0 0 0 color-mix(in srgb, var(--text-primary) 0%, transparent);
 }
 .card:hover, .card:focus-within {
   transform: translateY(-2px);
-  box-shadow: 0 24px 50px -28px rgb(25 25 25 / 0.45);
+  box-shadow: var(--shadow-canvas);
 }
 
 /* Photograph zooms inside its frame */
@@ -397,7 +552,7 @@ body {
   line-height: 1;
   white-space: nowrap;
   pointer-events: none;
-  color: rgb(25 25 25 / 0.08);
+  color: color-mix(in srgb, var(--text-primary) 8%, transparent);
 }
 .carets span { display: block; animation: drift 22s linear infinite; }
 .carets span:nth-child(even) { animation-direction: reverse; }
@@ -456,21 +611,21 @@ body {
 .meter-seg { animation: seg 3.6s ease-in-out infinite; }
 @keyframes seg { 0%, 10% { background: rgb(244 241 234 / 0.25); } 30%, 70% { background: var(--c); } 90%, 100% { background: rgb(244 241 234 / 0.25); } }
 .tone-pill { animation: tone 3.2s steps(1) infinite; }
-@keyframes tone { 0%, 33% { background: var(--color-paper); color: var(--color-ink); } 34%, 100% { background: transparent; color: inherit; } }
+@keyframes tone { 0%, 33% { background: var(--highlight-surface); color: var(--highlight-foreground); } 34%, 100% { background: transparent; color: inherit; } }
 
 .bill-line { transform-origin: 100% 50%; animation: billl 3.6s var(--ease) infinite; }
 @keyframes billl { 0% { scale: 0 1; } 25%, 90% { scale: 1 1; } 100% { scale: 0 1; } }
 
-.booth-slot { background: rgb(25 25 25 / 0.1); animation: slot 3.6s var(--ease) infinite; }
+.booth-slot { background: color-mix(in srgb, var(--text-primary) 10%, transparent); animation: slot 3.6s var(--ease) infinite; }
 @keyframes slot {
-  0%, 15% { background: rgb(25 25 25 / 0.1); }
+  0%, 15% { background: color-mix(in srgb, var(--text-primary) 10%, transparent); }
   25%, 85% { background: var(--color-cobalt); }
-  100% { background: rgb(25 25 25 / 0.1); }
+  100% { background: color-mix(in srgb, var(--text-primary) 10%, transparent); }
 }
 .booth-slot:nth-child(2) { --slot: var(--color-tomato); animation-name: slot2; }
 .booth-slot:nth-child(3) { animation-name: slot3; }
-@keyframes slot2 { 0%, 15% { background: rgb(25 25 25 / 0.1); } 25%, 85% { background: var(--color-tomato); } 100% { background: rgb(25 25 25 / 0.1); } }
-@keyframes slot3 { 0%, 15% { background: rgb(25 25 25 / 0.1); } 25%, 85% { background: var(--color-ink); } 100% { background: rgb(25 25 25 / 0.1); } }
+@keyframes slot2 { 0%, 15% { background: color-mix(in srgb, var(--text-primary) 10%, transparent); } 25%, 85% { background: var(--color-tomato); } 100% { background: color-mix(in srgb, var(--text-primary) 10%, transparent); } }
+@keyframes slot3 { 0%, 15% { background: color-mix(in srgb, var(--text-primary) 10%, transparent); } 25%, 85% { background: var(--color-ink); } 100% { background: color-mix(in srgb, var(--text-primary) 10%, transparent); } }
 
 .order-dot.bg-lime { animation: od 3.2s ease-in-out infinite; }
 @keyframes od { 0%, 100% { scale: 1; } 15% { scale: 1.4; } 30% { scale: 1; } }

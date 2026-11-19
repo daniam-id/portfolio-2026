@@ -47,7 +47,7 @@ export function ToolRow({ tools }: { tools: string[] }) {
   return (
     <ul className="flex flex-wrap gap-2" aria-label="Tools">
       {tools.map((t) => (
-        <li key={t} className="grid size-10 place-items-center rounded-full bg-paper-2" title={TOOL_NAMES[t] ?? t}>
+        <li key={t} className="tool-logo-backing grid size-10 place-items-center rounded-full" title={TOOL_NAMES[t] ?? t}>
           <Icon name={t} size={20} />
           <span className="sr-only">{TOOL_NAMES[t] ?? t}</span>
         </li>

@@ -1,7 +1,7 @@
 /* An open identity composition: type takes the place of a portrait. */
 .ab {
-  background: var(--color-paper);
-  color: var(--color-ink);
+  background: var(--surface-page);
+  color: var(--text-primary);
   min-height: 0;
   padding-block: clamp(56px, 6vw, 96px) clamp(72px, 8vw, 128px);
   scroll-margin-top: var(--nav);
@@ -17,7 +17,7 @@
 
 .ab__title {
   margin: 0;
-  color: var(--color-cobalt);
+  color: var(--accent-cobalt-text);
   font-size: clamp(100px, 17vw, 240px);
   font-weight: 600;
   line-height: 0.88;
@@ -73,7 +73,7 @@
   align-items: center;
   gap: 20px;
   min-height: 44px;
-  color: var(--color-cobalt);
+  color: var(--accent-cobalt-text);
   font-size: 14px;
   text-decoration-line: underline;
   text-decoration-thickness: 1px;
@@ -83,7 +83,7 @@
 .ab__studio span { transition: transform 180ms var(--ease); }
 .ab__studio:hover span { transform: translate(3px, -3px); }
 .ab__studio:focus-visible {
-  outline: 3px solid var(--color-cobalt);
+  outline: 3px solid var(--outline-focus);
   outline-offset: 5px;
   border-radius: 0;
 }
@@ -95,7 +95,7 @@
   margin: 48px 0 0;
 }
 
-.ab__facts dt { color: var(--color-cobalt); }
+.ab__facts dt { color: var(--accent-cobalt-text); }
 .ab__facts dd { margin: 6px 0 0; font-size: 13px; line-height: 1.65; }
 
 .ab__statement { padding-top: 30px; }
@@ -113,7 +113,7 @@
   letter-spacing: -0.025em;
 }
 
-.ab__period { color: var(--color-cobalt); }
+.ab__period { color: var(--accent-cobalt-text); }
 .ab__statement-note { display: block; font-size: 12px; line-height: 1.6; }
 
 .ab__principles { padding-top: 72px; }
@@ -126,7 +126,7 @@
   align-items: start;
 }
 
-.ab__number { padding-top: 10px; font-size: 10px; color: var(--color-cobalt); }
+.ab__number { padding-top: 10px; font-size: 10px; color: var(--accent-cobalt-text); }
 .ab__principle h4 {
   margin: 0;
   font-family: var(--font-serif);
@@ -147,7 +147,7 @@
 
 .ab__principle:nth-child(2) { margin-top: 60px; margin-left: -18%; }
 .ab__principle:nth-child(3) { margin-top: 60px; margin-left: -48%; }
-.ab__principle:last-child h4 { color: var(--color-cobalt); }
+.ab__principle:last-child h4 { color: var(--accent-cobalt-text); }
 
 @media (min-width: 1600px) {
   .ab__title { font-size: 240px; }

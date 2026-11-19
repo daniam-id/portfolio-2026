@@ -10,7 +10,7 @@
   inset: 0;
   z-index: 1000;
   display: none;
-  background: var(--color-paper, #f4f1ea);
+  background: var(--surface-page, var(--color-paper, #f4f1ea));
 }
 
 html.intro-running .intro,
