@@ -13,7 +13,7 @@ Implementation complete. Preserve existing layout, typography, copy, section ord
 
 **Verification:**
 - [x] Build succeeds: `npm run build`.
-- [x] Inspect prerendered HTML and load with both system preferences to confirm the root theme is selected before first paint. Confirm the static content is still readable with JavaScript disabled.
+- [x] Inspect prerendered HTML and load with both system preferences to confirm the root theme is selected before first paint. Confirm static content stays readable with JavaScript disabled and the toggle is hidden until initialization.
 - [x] Confirm no theme-dependent React markup is read before hydration.
 
 **Dependencies:** None.

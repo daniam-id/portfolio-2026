@@ -13,6 +13,7 @@ const app = (
 );
 
 initializeTheme();
+document.documentElement.dataset.appReady = "true";
 runIntro();
 
 // The production build ships prerendered HTML (scripts/prerender.mjs); the dev server does not.

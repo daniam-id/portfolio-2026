@@ -404,7 +404,7 @@ html[data-theme="dark"] .tag--paper { background: var(--surface-secondary); colo
 
 /* Quiet, text-only theme action in the existing header control group. */
 .theme-toggle {
-  display: inline-flex;
+  display: none;
   min-height: 44px;
   align-items: center;
   justify-content: center;
@@ -418,6 +418,7 @@ html[data-theme="dark"] .tag--paper { background: var(--surface-secondary); colo
   white-space: nowrap;
   cursor: pointer;
 }
+html[data-app-ready="true"] .theme-toggle { display: inline-flex; }
 .theme-toggle:hover { background: var(--surface-secondary); }
 .theme-toggle__dark-label,
 .theme-toggle__light-label { display: none; }
