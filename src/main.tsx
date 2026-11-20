@@ -2,7 +2,6 @@ import { StrictMode } from "react";
 import { createRoot, hydrateRoot } from "react-dom/client";
 import { App } from "./App";
 import { runIntro } from "./lib/intro";
-import { initializeTheme } from "./lib/theme";
 import "./index.css";
 
 const root = document.getElementById("root")!;
@@ -12,7 +11,6 @@ const app = (
   </StrictMode>
 );
 
-initializeTheme();
 document.documentElement.dataset.appReady = "true";
 runIntro();
 

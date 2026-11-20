@@ -32,10 +32,8 @@
 }
 
 :root {
-  /* Theme-aware UI colors stay separate from the fixed artwork palette above. */
-  --theme-light: #f4f1ea;
-  --theme-dark: #23221f;
-  --surface-page: var(--theme-light);
+  /* UI colors stay separate from the fixed artwork palette above. */
+  --surface-page: var(--color-paper);
   --surface-secondary: #fbf9f4;
   --text-primary: #191919;
   --text-muted: #625f58;
@@ -87,43 +85,6 @@
   color-scheme: light;
 }
 
-html[data-theme="dark"] {
-  color-scheme: dark;
-  --surface-page: var(--theme-dark);
-  --surface-secondary: #302f2b;
-  --text-primary: #f4f1ea;
-  --text-muted: #c0bbb1;
-  --text-project-muted: var(--text-muted);
-  --text-project-body: var(--text-muted);
-  --border-subtle: #514e47;
-  --shadow-canvas: 0 24px 50px -28px rgb(0 0 0 / 0.62);
-  --shadow-surface: 0 12px 32px -20px rgb(0 0 0 / 0.48);
-  --shadow-feedback: 0 7px 0 -3px rgb(0 0 0 / 0.36);
-  --outline-focus: #b9c4ff;
-
-  --accent-tomato-surface: #813322;
-  --accent-tomato-foreground: #fff1e9;
-  --accent-mint-surface: #2d5140;
-  --accent-mint-foreground: #e5f3e9;
-  --accent-lime-surface: #53611b;
-  --accent-lime-foreground: #f5f3e7;
-  --accent-cobalt-surface: var(--color-cobalt);
-  --accent-cobalt-foreground: #f2f3ff;
-  --accent-cobalt-text: #b9c4ff;
-  --accent-project-rust: #ff9b7c;
-  --accent-project-rust-hover: #ffad93;
-  --accent-sand-surface: #574a35;
-  --accent-sand-foreground: #f5f0e6;
-  --highlight-surface: var(--surface-secondary);
-  --highlight-foreground: var(--text-primary);
-  --tag-surface: var(--surface-secondary);
-  --tag-foreground: var(--text-primary);
-  --confetti-neutral: #f4f1ea;
-
-  --status-success: #86d6a5;
-  --status-warning: #f0c16e;
-  --status-danger: #ff9a86;
-}
 @media (min-width: 640px) {
   :root { --gut: 48px; --nav: 72px; --padt: 120px; --padb: 80px; }
 }
@@ -162,8 +123,6 @@ body {
 
 /* Dark ink belongs to fixed artwork, not to the active page palette. */
 .on-dark .btn, .on-cobalt .btn { --bg: var(--accent-cobalt-foreground); --fg: var(--art-ink); }
-html[data-theme="dark"] .on-dark .btn,
-html[data-theme="dark"] .on-cobalt .btn { --bg: var(--accent-cobalt-foreground); --fg: var(--art-ink); }
 .on-dark .btn.btn--ink { --bg: var(--art-ink); --fg: var(--art-paper); }
 
 /* ------------------------------------------------------------------
@@ -281,7 +240,6 @@ html[data-theme="dark"] .on-cobalt .btn { --bg: var(--accent-cobalt-foreground);
 .tag--paper { background: var(--color-paper); color: var(--color-ink); }
 .tag--paper .tag__caret { color: var(--accent-cobalt-text); }
 .tag--paper .tag__cursor { background: var(--color-tomato); }
-html[data-theme="dark"] .tag--paper { background: var(--surface-secondary); color: var(--text-primary); }
 @keyframes blink { to { opacity: 0; } }
 
 /* ------------------------------------------------------------------
@@ -402,29 +360,6 @@ html[data-theme="dark"] .tag--paper { background: var(--surface-secondary); colo
 }
 .link:hover, .link:focus-visible { background-size: 100% 1.5px; }
 
-/* Quiet, text-only theme action in the existing header control group. */
-.theme-toggle {
-  display: none;
-  min-height: 44px;
-  align-items: center;
-  justify-content: center;
-  padding: 0 12px;
-  border: 1px solid var(--border-subtle);
-  border-radius: 999px;
-  background: transparent;
-  color: var(--text-primary);
-  font: 500 15px/1 var(--font-sans);
-  letter-spacing: -0.02em;
-  white-space: nowrap;
-  cursor: pointer;
-}
-html[data-app-ready="true"] .theme-toggle { display: inline-flex; }
-.theme-toggle:hover { background: var(--surface-secondary); }
-.theme-toggle__dark-label,
-.theme-toggle__light-label { display: none; }
-html:not([data-theme="dark"]) .theme-toggle__dark-label { display: inline; }
-html[data-theme="dark"] .theme-toggle__light-label { display: inline; }
-
 /* ------------------------------------------------------------------
    Chips
 ------------------------------------------------------------------ */
@@ -483,14 +418,6 @@ html[data-theme="dark"] .theme-toggle__light-label { display: inline; }
   background: color-mix(in srgb, var(--text-primary) 15%, transparent);
 }
 .nav-header-surface > .wrap[aria-hidden="true"] > span > span { background: var(--text-primary); }
-html[data-theme="dark"] .nav-header-surface a.group > span:first-child {
-  background: var(--surface-secondary);
-  color: var(--accent-lime-graphic);
-}
-html[data-theme="dark"] .nav-header-surface button[aria-controls="menu"] {
-  background: var(--text-primary);
-  color: var(--surface-page);
-}
 #menu {
   background: var(--accent-lime-surface);
   color: var(--accent-lime-foreground);

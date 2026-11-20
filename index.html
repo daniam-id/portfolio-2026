@@ -10,28 +10,6 @@
     />
     <meta name="author" content="Adam Dani Apta Mahendra" />
     <meta name="theme-color" content="#f4f1ea" />
-    <script>
-      (function () {
-        var root = document.documentElement;
-        var theme;
-        try {
-          var saved = window.localStorage.getItem("portfolio-theme");
-          if (saved === "light" || saved === "dark") theme = saved;
-        } catch (_) {}
-        if (!theme) {
-          try {
-            theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-          } catch (_) {
-            theme = "light";
-          }
-        }
-        root.dataset.theme = theme;
-        root.style.colorScheme = theme;
-        var color = theme === "dark" ? "#23221f" : "#f4f1ea";
-        var meta = document.querySelector('meta[name="theme-color"]');
-        if (meta) meta.content = color;
-      })();
-    </script>
     <link rel="canonical" href="https://adamdev.web.id/" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 

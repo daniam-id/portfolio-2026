@@ -1,5 +1,4 @@
 import { useEffect, useRef, type CSSProperties } from "react";
-import { getTheme, onThemeChange, type Theme } from "../lib/theme";
 
 /**
  * A four-screen halftone (ink, cobalt, tomato, lime), each screen rotated to its own angle and
@@ -10,10 +9,10 @@ import { getTheme, onThemeChange, type Theme } from "../lib/theme";
 type Circle = { x: number; y: number; r: number };
 
 const SCREENS = [
-  { light: "#191919", dark: "#f4f1ea", angle: 45 },
-  { light: "#2f4be0", dark: "#2f4be0", angle: 75 },
-  { light: "#ff5a36", dark: "#ff5a36", angle: 15 },
-  { light: "#b9d419", dark: "#b9d419", angle: 0 },
+  { ink: "#191919", angle: 45 },
+  { ink: "#2f4be0", angle: 75 },
+  { ink: "#ff5a36", angle: 15 },
+  { ink: "#b9d419", angle: 0 },
 ];
 
 const hash = (a: number, b: number) => {
@@ -47,7 +46,6 @@ export function Halftone({ circles, pitch = 7, seed = 1, className = "", style, 
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
     const fine = window.matchMedia("(hover: hover) and (pointer: fine)");
     let reduce = preference.matches;
-    let theme: Theme = getTheme();
     const dpr = Math.min(1.5, window.devicePixelRatio || 1);
     let W = 0;
     let H = 0;
@@ -124,9 +122,8 @@ export function Halftone({ circles, pitch = 7, seed = 1, className = "", style, 
     const compose = () => {
       ctx.globalCompositeOperation = "source-over";
       ctx.clearRect(0, 0, W, H);
-      // Preserve the original light-theme print. Screen composition keeps the bright dark-theme
-      // inks from muddying together on deeper section grounds.
-      ctx.globalCompositeOperation = theme === "dark" ? "screen" : "multiply";
+      // Multiply keeps the inks reading as printed ink on the paper ground.
+      ctx.globalCompositeOperation = "multiply";
       for (const i of inks) ctx.drawImage(layers[i], 0, 0);
     };
 
@@ -156,7 +153,7 @@ export function Halftone({ circles, pitch = 7, seed = 1, className = "", style, 
         const ca = Math.cos(a), sa = Math.sin(a), cb = Math.cos(b), sb = Math.sin(b);
         const bx = 0.5 + 0.36 * Math.sin(t * 0.21 + i * 2.1 + seed);
         const by = 0.5 + 0.4 * Math.cos(t * 0.17 + i * 1.3 + seed * 1.7);
-        lctx.fillStyle = SCREENS[i][theme];
+        lctx.fillStyle = SCREENS[i].ink;
         lctx.beginPath();
         for (let k = 0; k < g.n; k++) {
           let x = g.x[k];
@@ -260,12 +257,6 @@ export function Halftone({ circles, pitch = 7, seed = 1, className = "", style, 
         if (visible && !document.hidden) start();
       }
     };
-    const unsubscribeTheme = onThemeChange((nextTheme) => {
-      theme = nextTheme;
-      const t = reduce ? 99 : (performance.now() - t0) / 1000;
-      for (const i of inks) paint(i, t);
-      compose();
-    });
     onPreference();
     preference.addEventListener("change", onPreference);
     fine.addEventListener("change", onPreference);
@@ -278,7 +269,6 @@ export function Halftone({ circles, pitch = 7, seed = 1, className = "", style, 
       window.removeEventListener("pointermove", onMove);
       preference.removeEventListener("change", onPreference);
       fine.removeEventListener("change", onPreference);
-      unsubscribeTheme();
     };
   }, [circles, pitch, seed, inks, strength]);
 

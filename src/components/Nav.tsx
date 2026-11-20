@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { nav, navTop, person } from "../content";
-import { getTheme, onThemeChange, toggleTheme, type Theme } from "../lib/theme";
 
 /**
  * Fixed header. The segmented bar under it is the reference's story progress: one segment per
@@ -9,15 +8,8 @@ import { getTheme, onThemeChange, toggleTheme, type Theme } from "../lib/theme";
 export function Nav() {
   const [active, setActive] = useState(-1);
   const [open, setOpen] = useState(false);
-  const [themeLabel, setThemeLabel] = useState("Toggle color theme");
   const toggle = useRef<HTMLButtonElement>(null);
   const skipRestore = useRef(false);
-
-  useEffect(() => {
-    const updateLabel = (theme: Theme) => setThemeLabel(`Switch to ${theme === "dark" ? "light" : "dark"} theme`);
-    updateLabel(getTheme());
-    return onThemeChange(updateLabel);
-  }, []);
 
   useEffect(() => {
     if (!("IntersectionObserver" in window)) return;
@@ -94,10 +86,6 @@ export function Nav() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <button type="button" className="theme-toggle" aria-label={themeLabel} onClick={toggleTheme}>
-              <span className="theme-toggle__dark-label">Dark</span>
-              <span className="theme-toggle__light-label">Light</span>
-            </button>
             <div className="hidden lg:block">
               <a href="#contact" className="btn !min-h-11 !px-5 !text-[15px]">
                 Contact Me
